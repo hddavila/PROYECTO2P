@@ -30,7 +30,9 @@ import javafx.scene.layout.VBox;
  */
 
 public class Juego extends Application {
-   
+    private final double width = 900;
+    private final double height = 500;
+    
     public static void main(String[] args) {
         launch(args);
     }
@@ -56,7 +58,10 @@ public class Juego extends Application {
         
         try{
         //establecer la imagen de fondo
-        ImageView fondo=new ImageView(new Image("/src/recursos/background2.png"));
+        ImageView fondo=new ImageView(new Image("/recursos/background.png"));
+        fondo.setFitHeight(height);
+        fondo.setPreserveRatio(true);
+        root.getChildren().add(fondo);
         }
         catch(Exception e){
             System.out.println("->ERROR AL CARGAR LA IMAGEN");
@@ -86,7 +91,7 @@ public class Juego extends Application {
         
         });
         
-        Scene inicio=new Scene(root,900,500);
+            Scene inicio=new Scene(root,width,height);
         stage.setScene(inicio);
         stage.setTitle("Loteria Mexicana");
         stage.show();
