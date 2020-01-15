@@ -7,6 +7,7 @@ package Main;
  */
 
 
+import java.io.File;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -24,6 +25,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import ventanas.VntInicio;
+
 /**
  *
  * Clase principal de la aplicacion que contiene a la ventana de incio del juego
@@ -40,60 +43,15 @@ public class Juego extends Application {
     @Override
     public void start(Stage stage) {
         
-        StackPane root=new StackPane();
+        VntInicio inicio=new VntInicio();
         
+        Scene escena=new Scene(inicio.getRoot(),width,height);
+
+        escena.getStylesheets().add("/css/estiloInicio.css");
         
-        //declarar contenedor
-        VBox columna=new VBox(15);
-        
-        //elementos del contenedor
-        Label titulo=new Label("Loteria Mexicana");
-        Button btn_nuevo=new Button("Nuevo Juego");
-        Button btn_config=new Button("Configuraciones");
-        Button btn_report=new Button("Reporte");
-        
-        columna.getChildren().addAll(titulo,btn_nuevo,btn_config,btn_report);
-        columna.setAlignment(Pos.CENTER);
-        
-        
-        try{
-        //establecer la imagen de fondo
-        ImageView fondo=new ImageView(new Image("/recursos/background.png"));
-        fondo.setFitHeight(height);
-        fondo.setPreserveRatio(true);
-        root.getChildren().add(fondo);
-        }
-        catch(Exception e){
-            System.out.println("->ERROR AL CARGAR LA IMAGEN");
-        }
-        
-        root.getChildren().addAll(columna);
-        
-        //evento del boton Nuevo Juego
-        btn_nuevo.setOnAction(e->{
-//            ventanaNuevo vn=new VentanaNuevo();
-//            Scene escenaVn=new Scene(vn.getRoot(),900,500);
-//            Stage stgVn=new Stage();
-//            
-//            stgVn.setTitle("Inicar");
-//            stgVn.setScene(escenVn);
-//            stgVn.show();
-        });
-        
-        
-        //evento del boton Configuraciones
-        btn_config.setOnAction(e->{
-            
-        });
-        
-        //eventodel boton Reporte
-        btn_report.setOnAction(e->{
-        
-        });
-        
-            Scene inicio=new Scene(root,width,height);
-        stage.setScene(inicio);
+        stage.setScene(escena);
         stage.setTitle("Loteria Mexicana");
+//        stage.setResizable(false);
         stage.show();
        
     }
