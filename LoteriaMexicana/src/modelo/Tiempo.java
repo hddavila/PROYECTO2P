@@ -5,15 +5,13 @@
  */
 package modelo;
 
-<<<<<<< HEAD
+import java.util.Date;
+
 /**
  *
  * @author Usuario
  */
-class Tiempo {
     
-=======
-import java.util.Date;
 
 /**
  *
@@ -43,5 +41,4 @@ public class Tiempo {
     public void setDuracion(String duracion) {
         this.duracion = duracion;
     }
->>>>>>> 42674e023767d27899f21f511bc4f4727b0bc629
 }
