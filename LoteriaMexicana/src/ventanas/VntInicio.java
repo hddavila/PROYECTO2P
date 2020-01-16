@@ -10,9 +10,11 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -101,6 +103,7 @@ public class VntInicio {
         //evento del boton Configuraciones
         btn_config.setOnAction(e->{
             sonido();
+            configuracion();
         });
         
         //eventodel boton Reporte
@@ -129,6 +132,11 @@ public class VntInicio {
         
     }
     
+    
+    /**
+     *
+     * Reproduce el sonido del boton
+     */
     public void sonido(){
         try{
         String path="src/audios/button2.wav";
@@ -144,6 +152,11 @@ public class VntInicio {
         }
     }
     
+    
+    /**
+     *
+     * Reproduce la musica de fondo
+     */
     public void musica(){
         try{
         String path="src/audios/mexico.wav";
@@ -156,5 +169,58 @@ public class VntInicio {
         catch(Exception e){
             System.out.println("NO SE REPRODUCE");
         }
+    }
+    
+    /**
+     *
+     * Muestra la ventana configuracion en donde se podra ajustar el juego y al salir de esta ventana se actualizara
+     * el archivo que existia por defecto de la configuracion del juego
+     */
+    public void configuracion(){
+        BorderPane config=new BorderPane();
+        
+        ImageView back=new ImageView("/recursos/back.png");
+        back.setPreserveRatio(true);
+        back.setFitWidth(50);
+
+        Label lblConfig=new Label("Configuracion");
+        HBox header=new HBox(5);
+        header.getChildren().addAll(back,lblConfig);
+        
+        config.setTop(header);
+        
+        HBox fila1=new HBox(10);
+        fila1.setStyle("-fx-background-color: #B3F6F3;");
+        Label lblCantidad=new Label("Cantidad de oponentes");
+        ComboBox cantidad=new ComboBox();
+        cantidad.getItems().addAll(0,1,2);
+        
+        fila1.getChildren().addAll(lblCantidad,cantidad);
+        fila1.setAlignment(Pos.CENTER);
+        
+        
+        HBox fila2=new HBox(10);
+        Label lblVisibilidad=new Label("Visibilidad oponentes");
+        Button btn_activar=new Button("activar");
+        
+        fila2.getChildren().addAll(lblVisibilidad,btn_activar);
+        
+        
+        VBox columna2=new VBox(5);
+        columna2.getChildren().addAll(fila1,fila2);
+        
+        config.setCenter(columna2);
+        
+        root.getScene().setRoot(config);
+        
+        
+        
+        back.setOnMouseClicked(m->{
+            sonido();
+            config.getScene().setRoot(root);
+        });
+        
+        
+        
     }
 }
