@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -20,6 +21,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 
@@ -179,6 +182,15 @@ public class VntInicio {
     public void configuracion(){
         BorderPane config=new BorderPane();
         
+        Rectangle base1=new Rectangle(350,100);
+        base1.setFill(Color.AQUAMARINE);
+        
+        Rectangle base2=new Rectangle(350,100);
+        base2.setFill(Color.AQUAMARINE);
+        
+        StackPane f1=new StackPane();
+        StackPane f2=new StackPane();
+        
         ImageView back=new ImageView("/recursos/back.png");
         back.setPreserveRatio(true);
         back.setFitWidth(50);
@@ -190,10 +202,10 @@ public class VntInicio {
         config.setTop(header);
         
         HBox fila1=new HBox(10);
-        fila1.setStyle("-fx-background-color: #B3F6F3;");
         Label lblCantidad=new Label("Cantidad de oponentes");
         ComboBox cantidad=new ComboBox();
         cantidad.getItems().addAll(0,1,2);
+        cantidad.setValue(1);
         
         fila1.getChildren().addAll(lblCantidad,cantidad);
         fila1.setAlignment(Pos.CENTER);
@@ -204,10 +216,19 @@ public class VntInicio {
         Button btn_activar=new Button("activar");
         
         fila2.getChildren().addAll(lblVisibilidad,btn_activar);
+        fila2.setAlignment(Pos.CENTER);
+        
+        
+        f1.getChildren().addAll(base1,fila1);
+        f1.setAlignment(Pos.CENTER);
+        
+        
+        f2.getChildren().addAll(base2,fila2);
+        f2.setAlignment(Pos.CENTER);
         
         
         VBox columna2=new VBox(5);
-        columna2.getChildren().addAll(fila1,fila2);
+        columna2.getChildren().addAll(f1,f2);
         
         config.setCenter(columna2);
         
