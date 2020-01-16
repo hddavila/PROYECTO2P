@@ -29,6 +29,11 @@ public class Carta implements Serializable {
         this.numero=numero;
         this.imagen=imagen;
     }
+
+    public ImageView getImagen() {
+        return imagen;
+    }
+    
     
 }
 

@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Usuario
+ * @author Gabriel
  */
 public class Partida implements Serializable {
     String nombreUsuario;
