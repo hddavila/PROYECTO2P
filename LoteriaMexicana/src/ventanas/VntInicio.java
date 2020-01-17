@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -99,6 +100,8 @@ public class VntInicio {
         //evento del boton Nuevo Juego
         btn_nuevo.setOnAction(e->{
               sonido();
+              VntNuevo nuevo=new VntNuevo();
+              root.getScene().setRoot(nuevo.getRoot());
 //            ventanaNuevo vn=new VentanaNuevo();
 //            Scene escenaVn=new Scene(vn.getRoot(),900,500);
 //            Stage stgVn=new Stage();
@@ -146,7 +149,7 @@ public class VntInicio {
      *
      * Reproduce el sonido del boton
      */
-    public void sonido(){
+    public static void sonido(){
         try{
         String path="src/audios/button2.wav";
         Media media = new Media(new File(path).toURI().toString());
@@ -252,4 +255,5 @@ public class VntInicio {
         
         
     }
+    
 }

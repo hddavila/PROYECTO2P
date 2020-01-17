@@ -23,10 +23,9 @@ public class prueba extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        PanelAlineacion ali=new PanelAlineacion(Alineacion.FILA);
+        PanelAlineacion ali=new PanelAlineacion(Alineacion.CUALQUIERESQUINA);
         
-        Scene scene = new Scene(ali.getRoot(), 300, 400);
-        scene.getStylesheets().add("src/css/estiloPanel.css");
+        Scene scene = new Scene(ali.getRoot(), 300, 230);
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
         primaryStage.show();

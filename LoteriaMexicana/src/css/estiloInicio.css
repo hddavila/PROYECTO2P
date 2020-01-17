@@ -53,3 +53,22 @@
     -fx-arc-width: 40;
     -fx-opacity: 0.90;
 }
+
+
+#cuadroNuevo{
+    -fx-fill: #E6B3D9;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+    -fx-arc-height: 40;
+    -fx-arc-width: 40;
+    -fx-opacity: 0.90; 
+}
+
+/* boton iniciar */
+#iniciar{
+    -fx-text-fill: white;
+    -fx-font-family: Helvetica;
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#FCDD7B, #FF9D27);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font-size:20px;
+}

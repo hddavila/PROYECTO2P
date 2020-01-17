@@ -27,13 +27,19 @@ public class PanelAlineacion {
     private VBox columna;
     private BorderPane root;
     
-    
+    /**
+     * 
+     * Constructor del panel Alineacion que recibe un estado del Enum Alineacion 
+     */
     public PanelAlineacion(Alineacion alineacion){
         this.alineacion=alineacion;
         createContent();
     }
     
-    
+    /**
+     * 
+     * Metodo que devuelve el panel de alineacion generado 
+     */
     public BorderPane getRoot(){
         return root;
     }
@@ -42,7 +48,7 @@ public class PanelAlineacion {
     
      /**
      *
-     * Metodo que generada el contenido en el contenedor pi
+     * Metodo que generada el contenido en el contenedor principal
      * 
      */
     public void createContent(){
@@ -70,6 +76,7 @@ public class PanelAlineacion {
         
         
         GridPane cuadro=new GridPane();
+        cuadro.setAlignment(Pos.CENTER);
         
         //Dependiendo del caso se creara la alineacion grafica
         switch(alineacion){
@@ -84,15 +91,27 @@ public class PanelAlineacion {
                 root.setBottom(forma);
                 break;
             case ESQUINASUPIZQUIERDA:
+                cuadro=crearTabla(1,4);
+                forma.setText("4 EN ESQUINA SUPERIOR IZQUIERDA");
+                root.setBottom(forma);
                 break;
             case ESQUINASUPDERECHA:
+                cuadro=crearTabla(1,4);
+                forma.setText("4 EN ESQUINA SUPERIOR DERECHA");
+                root.setBottom(forma);
                 break;
             case ESQUINAINFIZQUIERDA:
+                cuadro=crearTabla(1,4);
+                forma.setText("4 EN ESQUINA INFERIOR IZQUIERDA");
+                root.setBottom(forma);
                 break;
             case ESQUINAINFDERECHA:
+                cuadro=crearTabla(1,4);
+                forma.setText("4 EN ESQUINA INFERIOR DERECHA");
+                root.setBottom(forma);
                 break;
             case CUALQUIERESQUINA:
-                cuadro=crearTabla(4,4);
+                cuadro=crearTabla(2,2);
                 forma.setText("4 EN UNA CUALQUIER ESQUINA");
                 root.setBottom(forma);
                 break;
