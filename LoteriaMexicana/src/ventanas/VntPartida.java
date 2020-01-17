@@ -9,11 +9,15 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import modelo.Jugador;
 import modelo.Partida;
+import paneles.PanelAlineacion;
 
 /**
  *
@@ -49,17 +53,41 @@ public class VntPartida {
         
         contenedor.setCenter(centro);
         contenedor.setRight(derecha);
+        contenedor.setLeft(izquierda);
         
-         //derecha
-            //inforamacion del jugador
-            try {
-                config=recuperarConfig();
+       
+         
+        try {
+            config=recuperarConfig();
+            
+            //DERECHA
+                //informacion del jugador
                 Label nombre=new Label(config.getNombreUsuario());
+                nombre.setId("jugador");
+
                 info.getChildren().add(nombre);
                 derecha.getChildren().addAll(info);
-            } catch (Exception ex) {
-                System.out.println("NO SE PUDO CARGAR LA INFORMACION");;
-            }
+            
+            //IZQUIERDA
+                //panel alineacion
+                PanelAlineacion alineacion=new PanelAlineacion(config.getAlineacion());
+                izquierda.getChildren().add(alineacion.getRoot());
+            //ABAJO
+                HBox abajo=new HBox();
+                Button loteria=new Button("LOTERIA");
+                loteria.setAlignment(Pos.CENTER);
+                
+                abajo.getChildren().add(loteria);
+                abajo.setAlignment(Pos.CENTER);
+                
+                contenedor.setBottom(abajo);
+                
+                
+                
+                
+        } catch (Exception ex) {
+            System.out.println("NO SE PUDO CARGAR LA INFORMACION");;
+        }
 
 
     }

@@ -91,22 +91,22 @@ public class PanelAlineacion {
                 root.setBottom(forma);
                 break;
             case ESQUINASUPIZQUIERDA:
-                cuadro=crearTabla(1,4);
+                cuadro=crearTabla(2,2);
                 forma.setText("4 EN ESQUINA SUPERIOR IZQUIERDA");
                 root.setBottom(forma);
                 break;
             case ESQUINASUPDERECHA:
-                cuadro=crearTabla(1,4);
+                cuadro=crearTabla(2,2);
                 forma.setText("4 EN ESQUINA SUPERIOR DERECHA");
                 root.setBottom(forma);
                 break;
             case ESQUINAINFIZQUIERDA:
-                cuadro=crearTabla(1,4);
+                cuadro=crearTabla(2,2);
                 forma.setText("4 EN ESQUINA INFERIOR IZQUIERDA");
                 root.setBottom(forma);
                 break;
             case ESQUINAINFDERECHA:
-                cuadro=crearTabla(1,4);
+                cuadro=crearTabla(2,2);
                 forma.setText("4 EN ESQUINA INFERIOR DERECHA");
                 root.setBottom(forma);
                 break;

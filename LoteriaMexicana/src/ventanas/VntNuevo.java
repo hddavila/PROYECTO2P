@@ -45,7 +45,8 @@ public class VntNuevo {
         root=new BorderPane();
         root.setId("fondoNuevo");
         txtNombre=new TextField();
-        txtNombre.setMaxSize(300, 200);
+        txtNombre.setId("caja");
+        txtNombre.setMaxSize(400,400);
         txtNombre.setPromptText("dinosaurio");
         
         StackPane ventana=new StackPane();
@@ -59,6 +60,7 @@ public class VntNuevo {
         Button btn_iniciar=new Button("Iniciar");
         btn_iniciar.setId("iniciar");
         
+        //accion del boton iniciar
         btn_iniciar.setOnAction(e->{
             sonido();
             if(txtNombre.getText().trim().length()>0){
@@ -66,10 +68,15 @@ public class VntNuevo {
                 
                 Stage stage=new Stage();
                 VntPartida pantalla=new VntPartida();
-                Scene escena=new Scene(pantalla.getContenedor(),1000,800);
+                Scene escena=new Scene(pantalla.getContenedor(),1200,800);
+                escena.getStylesheets().add("/css/estiloPartida.css");
+                        
                 stage.setScene(escena);
                 stage.setTitle("LOTERIA MEXICANA (JUGANDO)");
                 stage.show();
+                
+                //esconder la ventana de ingreso
+                titulo.getScene().getWindow().hide();
             }
             else{
                 Alert mensaje=new Alert(AlertType.WARNING);

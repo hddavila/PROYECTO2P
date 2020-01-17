@@ -76,3 +76,7 @@
 #fondoNuevo{
     -fx-background-color: #75BADC;
 }
+
+#caja{
+    -fx-font-size: 20;
+}
