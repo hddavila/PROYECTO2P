@@ -25,6 +25,10 @@ public class Tiempo {
         this.fecha = fecha;
         this.duracion = duracion;
     }
+    
+    public Tiempo(){
+        
+    }
 
     public Date getFecha() {
         return fecha;

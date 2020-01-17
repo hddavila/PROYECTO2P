@@ -6,8 +6,13 @@
 package ventanas;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -25,6 +30,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import modelo.Alineacion;
+import modelo.Partida;
+import modelo.Tiempo;
 
 
 /**
@@ -51,6 +59,7 @@ public class VntInicio {
      */
     public void createContent(){
         root=new StackPane();
+        root.setId("principal");
         
         
         //declarar contenedor
@@ -85,11 +94,11 @@ public class VntInicio {
         
         
         try{
-        //establecer la imagen de fondo
-        ImageView fondo=new ImageView(new Image("/recursos/background.png"));
-        fondo.setFitHeight(height);
-        fondo.setPreserveRatio(true);
-        root.getChildren().add(fondo);
+            //establecer la imagen de fondo
+            ImageView fondo=new ImageView(new Image("/recursos/background2.png"));
+            fondo.setFitHeight(height);
+            fondo.setPreserveRatio(true);
+            root.getChildren().add(fondo);
         }
         catch(Exception e){
             System.out.println("->ERROR AL CARGAR LA IMAGEN");
@@ -102,13 +111,6 @@ public class VntInicio {
               sonido();
               VntNuevo nuevo=new VntNuevo();
               root.getScene().setRoot(nuevo.getRoot());
-//            ventanaNuevo vn=new VentanaNuevo();
-//            Scene escenaVn=new Scene(vn.getRoot(),900,500);
-//            Stage stgVn=new Stage();
-//            
-//            stgVn.setTitle("Inicar");
-//            stgVn.setScene(escenVn);
-//            stgVn.show();
         });
         
         
@@ -118,30 +120,16 @@ public class VntInicio {
             configuracion();
         });
         
-        //eventodel boton Reporte
+        //evento del boton Reporte
         btn_report.setOnAction(e->{
             sonido();
         });
         
-        /*creacion de la configuracion de partida automática cuando no se ha
-        cambiado la configuracion*/
+        //reproducir musica de fondo
+        musica();
         
-//        Partida partida_def=new Partida("",alineacion,tiempo);
-//        
-//        try{
-//        FileOutputStream file=new FileOutputStream("partida.ser"); 
-//        ObjectOutputStream out=new ObjectOutputStream(file);
-//        out.writeObject(partida_def);
-//        out.flush();
-//        out.close();
-//        }
-//        catch(Exception e){
-//            System.out.println("->Error al generar la partida");
-//        }
-
-          musica();
-        
-        
+        //generar configuracion incial por defecto;
+        crearConfig();
     }
     
     
@@ -253,6 +241,40 @@ public class VntInicio {
         });
         
         
+        
+    }
+    
+    /**
+     * Metodo que genera el archivo con la configuracion incial por defecto al abrir el juego
+     */
+    public void crearConfig(){
+       
+        try {
+            ObjectOutputStream fout=new ObjectOutputStream(new FileOutputStream("src/partidas/config.ser"));
+            
+            
+            //generar alineacion
+            ArrayList<Alineacion> arreglo=new ArrayList<>();
+            arreglo.add(Alineacion.COLUMNA);
+            arreglo.add(Alineacion.FILA);
+            arreglo.add(Alineacion.CUALQUIERESQUINA);
+            arreglo.add(Alineacion.ESQUINAINFDERECHA);
+            arreglo.add(Alineacion.ESQUINAINFIZQUIERDA);
+            arreglo.add(Alineacion.ESQUINASUPDERECHA);
+            arreglo.add(Alineacion.ESQUINASUPIZQUIERDA);
+            
+            Random aleatorio=new Random();
+            int indice=aleatorio.nextInt(arreglo.size());
+           
+            Partida partida=new Partida("",arreglo.get(indice),null);
+ 
+            fout.writeObject(partida);
+            
+            fout.close();
+            
+        } catch (Exception ex) {
+            System.err.println("CONFIGURACION NO GENERADA");
+        }
         
     }
     

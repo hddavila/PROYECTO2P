@@ -5,6 +5,7 @@
  */
 package _______BORRAR____________;
 
+import java.util.Random;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,6 +30,11 @@ public class prueba extends Application {
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+//        Random aleatorio=new Random();
+//        System.out.println(aleatorio.nextInt(2));
+//           
+//        
     }
 
     /**
