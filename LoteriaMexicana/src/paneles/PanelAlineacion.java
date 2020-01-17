@@ -92,6 +92,9 @@ public class PanelAlineacion {
             case ESQUINAINFDERECHA:
                 break;
             case CUALQUIERESQUINA:
+                cuadro=crearTabla(4,4);
+                forma.setText("4 EN UNA CUALQUIER ESQUINA");
+                root.setBottom(forma);
                 break;
         }
         

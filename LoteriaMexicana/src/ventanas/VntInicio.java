@@ -55,8 +55,12 @@ public class VntInicio {
         //declarar contenedor
         VBox columna=new VBox(40);
         
+        StackPane banner=new StackPane();
         Label titulo=new Label("LOTERIA");
         Label titulo2=new Label("MEXICANA");
+        Rectangle cuadro=new Rectangle(750,100);
+        
+        cuadro.setId("cuadro");
         
         //contenedor de los dos labels que forman el titulo
         HBox titulos=new HBox(25);
@@ -64,6 +68,8 @@ public class VntInicio {
         titulo.setId("loteria");
         titulo2.setId("mexicana");
         titulos.setAlignment(Pos.CENTER);
+        
+        banner.getChildren().addAll(cuadro,titulos);
         
         //contenedor de los botones
         VBox cnt_botones=new VBox(15);
@@ -73,7 +79,7 @@ public class VntInicio {
         cnt_botones.getChildren().addAll(btn_nuevo,btn_config,btn_report);
         cnt_botones.setAlignment(Pos.CENTER);
         
-        columna.getChildren().addAll(titulos,cnt_botones);
+        columna.getChildren().addAll(banner,cnt_botones);
         columna.setAlignment(Pos.CENTER);
         
         
@@ -183,10 +189,10 @@ public class VntInicio {
         BorderPane config=new BorderPane();
         
         Rectangle base1=new Rectangle(350,100);
-        base1.setFill(Color.AQUAMARINE);
+        base1.setId("base1");
         
         Rectangle base2=new Rectangle(350,100);
-        base2.setFill(Color.AQUAMARINE);
+        base2.setId("base2");
         
         StackPane f1=new StackPane();
         StackPane f2=new StackPane();
@@ -196,7 +202,8 @@ public class VntInicio {
         back.setFitWidth(50);
 
         Label lblConfig=new Label("Configuracion");
-        HBox header=new HBox(5);
+        HBox header=new HBox(40);
+        header.setAlignment(Pos.CENTER);
         header.getChildren().addAll(back,lblConfig);
         
         config.setTop(header);
@@ -227,7 +234,8 @@ public class VntInicio {
         f2.setAlignment(Pos.CENTER);
         
         
-        VBox columna2=new VBox(5);
+        VBox columna2=new VBox(20);
+        columna2.setAlignment(Pos.CENTER);
         columna2.getChildren().addAll(f1,f2);
         
         config.setCenter(columna2);
