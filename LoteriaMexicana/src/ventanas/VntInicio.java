@@ -6,6 +6,7 @@
 package ventanas;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -21,6 +22,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -45,7 +48,10 @@ public class VntInicio {
     private final double width = 900;
     private final double height = 500;
     
+    ArrayList<ImageView> arregloCartas;
+    
     public VntInicio(){
+        arregloCartas=new ArrayList<>();
         createContent();
     }
     
@@ -128,9 +134,18 @@ public class VntInicio {
         //reproducir musica de fondo
         musica();
         
+        
         //generar configuracion incial por defecto;
         crearConfig();
+
+        actualizarArreglo();
+        
     }
+    
+    
+    
+    
+    
     
     
     /**
@@ -271,6 +286,7 @@ public class VntInicio {
             fout.writeObject(partida);
             
             fout.close();
+            System.out.println("CONFIGURACION GENERADA");
             
         } catch (Exception ex) {
             System.err.println("CONFIGURACION NO GENERADA");
@@ -278,4 +294,52 @@ public class VntInicio {
         
     }
     
+     public void obtenerCartas(String ruta,int ancho,int alto)throws Exception{
+        
+         Image tabla=new Image(ruta);
+ 
+        //crear una representacion en pixeles de la imagen
+        PixelReader leer=tabla.getPixelReader();
+        
+        int posx=0;
+        int posy=0;
+        
+        for(int i=0;i<4;i++){
+            posx=0;
+            for(int j=0;j<4;j++){
+                WritableImage carta=new WritableImage(leer,posx,posy,ancho,alto);  //(pixeles,posx,posy,ancho,alto)
+                ImageView cartaImagen=new ImageView(carta);
+                arregloCartas.add(cartaImagen);
+
+                posx=posx+ancho;
+                }
+            
+            posy=posy+alto;    
+        }   
+     }    
+    
+     public void actualizarArreglo(){
+        
+        //genera la lista de cartas a partir de la imagenes
+        try{
+//            System.out.println("dentro");
+            obtenerCartas("/recursos/cartas/cartas1.jpg",178,256); //(ruta,ancho de las cartas px,alto de las cartas px)
+            obtenerCartas("/recursos/cartas/cartas2.jpg",178,256);
+            obtenerCartas("/recursos/cartas/cartas3.jpg",178,256);
+            obtenerCartas("/recursos/cartas/cartas4.jpg",178,256);
+//            System.out.println(arregloCartas.size());
+//            
+            //elimina las cartas blancas del arreglo, estas se generaron por una imagen con pocas cartas     
+            for(int i=0;i<10;i++){
+                if(arregloCartas.size()!=53)
+                    arregloCartas.remove(arregloCartas.size()-1);
+            }    
+        }
+        catch(Exception m)
+        {
+            System.err.println("NO SE PUDIERON OBTENER LAS CARTAS");
+//            System.out.println(m.getMessage());
+        }
+        
+     }
 }
