@@ -70,6 +70,7 @@ public class VntReporte{
         conTitulo.getChildren().add(lbl);
         conTitulo.setAlignment(Pos.CENTER);
         
+        
     }
     
      
