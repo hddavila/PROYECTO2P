@@ -129,6 +129,8 @@ public class VntInicio {
         //evento del boton Reporte
         btn_report.setOnAction(e->{
             sonido();
+            VntReporte reporte=new VntReporte();
+            root.getScene().setRoot(reporte.getRoot());
         });
         
         //reproducir musica de fondo
