@@ -54,11 +54,9 @@ public class VntInicio {
     private final double width = 900;
     private final double height = 500;
     
-    ArrayList<ImageView> arregloCartas;
-     ArrayList<Carta> guardadas;
+
      
     public VntInicio(){
-        arregloCartas=new ArrayList<>();
         createContent();
     }
     
@@ -156,9 +154,7 @@ public class VntInicio {
         //generar configuracion incial por defecto;
         crearConfig();
 
-        actualizarArreglo();
         
-        crearCartas("src/recursos/cartasloteria.csv", arregloCartas);
    
     }
     /**
@@ -306,81 +302,5 @@ public class VntInicio {
         }
         
     }
-    
-     public void obtenerCartas(String ruta,int ancho,int alto)throws Exception{
-        
-         Image tabla=new Image(ruta);
- 
-        //crear una representacion en pixeles de la imagen
-        PixelReader leer=tabla.getPixelReader();
-        
-        int posx=0;
-        int posy=0;
-        
-        for(int i=0;i<4;i++){
-            posx=0;
-            for(int j=0;j<4;j++){
-                WritableImage carta=new WritableImage(leer,posx,posy,ancho,alto);  //(pixeles,posx,posy,ancho,alto)
-                ImageView cartaImagen=new ImageView(carta);
-                arregloCartas.add(cartaImagen);
-
-                posx=posx+ancho;
-                }
-            
-            posy=posy+alto;    
-        }   
-     }    
-    
-     public void actualizarArreglo(){
-        
-        //genera la lista de cartas a partir de la imagenes
-        try{
-//            System.out.println("dentro");
-            obtenerCartas("/recursos/cartas/cartas1.jpg",178,256); //(ruta,ancho de las cartas px,alto de las cartas px)
-            obtenerCartas("/recursos/cartas/cartas2.jpg",178,256);
-            obtenerCartas("/recursos/cartas/cartas3.jpg",178,256);
-            obtenerCartas("/recursos/cartas/cartas4.jpg",178,256);
-//            System.out.println(arregloCartas.size());
-//            
-            //elimina las cartas blancas del arreglo, estas se generaron por una imagen con pocas cartas     
-            for(int i=0;i<10;i++){
-                if(arregloCartas.size()!=53)
-                    arregloCartas.remove(arregloCartas.size()-1);
-            }    
-        }
-        catch(Exception m)
-        {
-            System.err.println("NO SE PUDIERON OBTENER LAS CARTAS");
-//            System.out.println(m.getMessage());
-        }
-        
-     }
      
-     /**
-      * Crea un archivo de objeto de tipo Cartas con la informacion del arreglo de las imagenes de las cartas y el archivo con la descripcion de estas
-      */
-     public void crearCartas(String ruta, ArrayList<ImageView> arrCartas){
-        guardadas=new ArrayList<>();
-         try{
-         //abrir archivo con la descripcion en orden
-         FileReader ge=new FileReader(ruta);
-         BufferedReader br=new BufferedReader(ge);
-
-         String linea;
-         while ((linea=br.readLine())!= null){
-             
-             String[] info=linea.split(",");
-             int numero=Integer.parseInt(info[0]);
-             String nombre=info[1];
-             
-             Carta carta=new Carta(nombre,numero,arrCartas.get(numero-1));
-             guardadas.add(carta);
-         }
-
-         }
-         catch(Exception  m){
-             System.err.println("CARTAS NO GENERADAS");
-             System.out.println(m.getMessage());
-         }
-     }
 }

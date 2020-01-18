@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import modelo.Alineacion;
+import modelo.Cronometro;
 import paneles.PanelAlineacion;
 
 /**
@@ -33,6 +34,10 @@ public class prueba extends Application {
         
         String h="marcos,juan";
         h.split(",");
+        
+    
+        
+        
         
 //        PanelAlineacion ali=new PanelAlineacion(Alineacion.CUALQUIERESQUINA);
 //        

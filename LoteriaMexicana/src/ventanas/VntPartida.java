@@ -5,9 +5,12 @@
  */
 package ventanas;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.geometry.Pos;
@@ -17,16 +20,24 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import modelo.Carta;
+import modelo.Cronometro;
 import modelo.Jugador;
 import modelo.Partida;
 import paneles.PanelAlineacion;
 import static ventanas.VntInicio.sonido;
+
+import modelo.Tablero;
 
 /**
  *
@@ -44,7 +55,12 @@ public class VntPartida {
     private Partida config;
     private VBox info;
     
+    private ArrayList<ImageView> arregloCartas;
+    public  ArrayList<Carta> guardadas;
+    
     public VntPartida(){
+        arregloCartas=new ArrayList<>();
+        guardadas=new ArrayList<>();
         createContent();
     }
     
@@ -53,6 +69,10 @@ public class VntPartida {
     }
     
     public void createContent(){
+        
+       actualizarArreglo();
+       crearCartas("src/recursos/cartasloteria.csv", arregloCartas);
+       
         //incializar todos lo contenedores
         contenedor=new BorderPane();
         izquierda=new VBox();
@@ -64,6 +84,8 @@ public class VntPartida {
         contenedor.setRight(derecha);
         contenedor.setLeft(izquierda);
         
+        
+        
        
          
         try {
@@ -73,8 +95,12 @@ public class VntPartida {
                 //informacion del jugador
                 Label nombre=new Label(config.getNombreUsuario());
                 nombre.setId("jugador");
+                
+                Cronometro crono=new Cronometro();
+                crono.inciar();
+                
 
-                info.getChildren().add(nombre);
+                info.getChildren().addAll(nombre,crono.getShow());
                 derecha.getChildren().addAll(info);
             
             //IZQUIERDA
@@ -83,6 +109,13 @@ public class VntPartida {
                 BorderPane panelAlineacion=alineacion.getRoot();
                 panelAlineacion.setId("alineacion");
                 izquierda.getChildren().add(panelAlineacion);
+                
+                
+                
+            //CENTRO
+                Tablero tablero=new Tablero(guardadas);
+                centro.getChildren().add(tablero.getRoot());
+                
             //ABAJO
                 HBox abajo=new HBox();
                 Button loteria=new Button("LOTERIA");
@@ -116,12 +149,14 @@ public class VntPartida {
                 abajo.setAlignment(Pos.CENTER);
                 
                 contenedor.setBottom(abajo);
-                
+           
+            
                 
                 
                 
         } catch (Exception ex) {
-            System.out.println("NO SE PUDO CARGAR LA INFORMACION");;
+            System.out.println("NO SE PUDO CARGAR LA INFORMACION");
+            System.out.println(ex.getMessage());
         }
 
 
@@ -167,5 +202,83 @@ public class VntPartida {
         stage.setTitle("Loteria Mexicana");
 //        stage.setResizable(false);
         stage.show();
+     }
+     
+     
+     public void obtenerCartas(String ruta,int ancho,int alto)throws Exception{
+        
+         Image tabla=new Image(ruta);
+ 
+        //crear una representacion en pixeles de la imagen
+        PixelReader leer=tabla.getPixelReader();
+        
+        int posx=0;
+        int posy=0;
+        
+        for(int i=0;i<4;i++){
+            posx=0;
+            for(int j=0;j<4;j++){
+                WritableImage carta=new WritableImage(leer,posx,posy,ancho,alto);  //(pixeles,posx,posy,ancho,alto)
+                ImageView cartaImagen=new ImageView(carta);
+                arregloCartas.add(cartaImagen);
+
+                posx=posx+ancho;
+                }
+            
+            posy=posy+alto;    
+        }   
+     }    
+    
+     public void actualizarArreglo(){
+        
+        //genera la lista de cartas a partir de la imagenes
+        try{
+//            System.out.println("dentro");
+            obtenerCartas("/recursos/cartas/cartas1.jpg",178,256); //(ruta,ancho de las cartas px,alto de las cartas px)
+            obtenerCartas("/recursos/cartas/cartas2.jpg",178,256);
+            obtenerCartas("/recursos/cartas/cartas3.jpg",178,256);
+            obtenerCartas("/recursos/cartas/cartas4.jpg",178,256);
+//            System.out.println(arregloCartas.size());
+//            
+            //elimina las cartas blancas del arreglo, estas se generaron por una imagen con pocas cartas     
+            for(int i=0;i<10;i++){
+                if(arregloCartas.size()!=53)
+                    arregloCartas.remove(arregloCartas.size()-1);
+            }    
+        }
+        catch(Exception m)
+        {
+            System.err.println("NO SE PUDIERON OBTENER LAS CARTAS");
+//            System.out.println(m.getMessage());
+        }
+        
+     }
+     
+     /**
+      * Crea un archivo de objeto de tipo Cartas con la informacion del arreglo de las imagenes de las cartas y el archivo con la descripcion de estas
+      */
+     public void crearCartas(String ruta, ArrayList<ImageView> arrCartas){
+        guardadas=new ArrayList<>();
+         try{
+         //abrir archivo con la descripcion en orden
+         FileReader ge=new FileReader(ruta);
+         BufferedReader br=new BufferedReader(ge);
+
+         String linea;
+         while ((linea=br.readLine())!= null){
+             
+             String[] info=linea.split(",");
+             int numero=Integer.parseInt(info[0]);
+             String nombre=info[1];
+             
+             Carta carta=new Carta(nombre,numero,arrCartas.get(numero-1));
+             guardadas.add(carta);
+         }
+
+         }
+         catch(Exception  m){
+             System.err.println("CARTAS NO GENERADAS");
+             System.out.println(m.getMessage());
+         }
      }
 }
