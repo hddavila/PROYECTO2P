@@ -14,7 +14,10 @@ class Tablero {
     private ArrayList<Carta> anunciadas;
     private GridPane root;
     
-    
+    /**
+     * 
+     * Construcor que recibe un arreglo de objetos de tipo Carta
+     */
     public Tablero(ArrayList<Carta> cartas_Jug){
         root = new GridPane();
         root.setVgap(5);

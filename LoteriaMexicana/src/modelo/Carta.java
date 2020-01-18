@@ -17,7 +17,7 @@ public class Carta implements Serializable {
     
     private String nombre;
     private int numero;
-    ImageView imagen;
+    private ImageView imagen;
     
     
     /**
@@ -30,9 +30,19 @@ public class Carta implements Serializable {
         this.imagen=imagen;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
     public ImageView getImagen() {
         return imagen;
     }
+
+    
     
     
 }

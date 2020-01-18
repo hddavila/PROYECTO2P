@@ -5,6 +5,8 @@
  */
 package _______BORRAR____________;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -24,13 +26,21 @@ public class prueba extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        PanelAlineacion ali=new PanelAlineacion(Alineacion.CUALQUIERESQUINA);
         
-        Scene scene = new Scene(ali.getRoot(), 300, 230);
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        Map<Integer,String> mapa=new HashMap<Integer,String>();
+        mapa.put(1,"Pablo");
+        System.out.println(mapa);
         
+        String h="marcos,juan";
+        h.split(",");
+        
+//        PanelAlineacion ali=new PanelAlineacion(Alineacion.CUALQUIERESQUINA);
+//        
+//        Scene scene = new Scene(ali.getRoot(), 300, 230);
+//        primaryStage.setTitle("Hello World!");
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
+//        
 //        Random aleatorio=new Random();
 //        System.out.println(aleatorio.nextInt(2));
 //           

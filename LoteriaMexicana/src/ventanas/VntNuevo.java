@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -32,6 +33,7 @@ import static ventanas.VntInicio.sonido;
 public class VntNuevo {
     TextField txtNombre;
     BorderPane root;
+    ImageView salir;
     
     public VntNuevo(){
         
@@ -52,6 +54,14 @@ public class VntNuevo {
         StackPane ventana=new StackPane();
         Rectangle cuadro=new Rectangle(500,200);
         cuadro.setId("cuadroNuevo");
+        
+         salir=new ImageView("/recursos/salir.png");
+        salir.setScaleX(0.25);
+        salir.setScaleY(0.25);
+        salir.setTranslateX(230);
+        salir.setTranslateY(-90);
+  
+        
         
         VBox columna=new VBox(10);
         
@@ -90,7 +100,7 @@ public class VntNuevo {
         columna.getChildren().addAll(titulo,txtNombre,btn_iniciar);
         columna.setAlignment(Pos.CENTER);
         
-        ventana.getChildren().addAll(cuadro,columna);
+        ventana.getChildren().addAll(cuadro,columna,salir);
         root.setCenter(ventana);
     }
     
@@ -123,4 +133,10 @@ public class VntNuevo {
            System.out.println("El ARCHIVO NO SE PUDO ACTUALIZAR");
        }
     }
+
+    public ImageView getSalir() {
+        return salir;
+    }
+    
+    
 }

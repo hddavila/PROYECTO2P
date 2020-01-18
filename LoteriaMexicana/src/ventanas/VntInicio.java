@@ -5,10 +5,15 @@
  */
 package ventanas;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
@@ -34,6 +39,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import modelo.Alineacion;
+import modelo.Carta;
 import modelo.Partida;
 import modelo.Tiempo;
 
@@ -49,7 +55,8 @@ public class VntInicio {
     private final double height = 500;
     
     ArrayList<ImageView> arregloCartas;
-    
+     ArrayList<Carta> guardadas;
+     
     public VntInicio(){
         arregloCartas=new ArrayList<>();
         createContent();
@@ -116,6 +123,9 @@ public class VntInicio {
         btn_nuevo.setOnAction(e->{
               sonido();
               VntNuevo nuevo=new VntNuevo();
+              nuevo.getSalir().setOnMouseClicked(k->{
+                  nuevo.getSalir().getScene().setRoot(root);
+              });
               root.getScene().setRoot(nuevo.getRoot());
         });
         
@@ -148,11 +158,10 @@ public class VntInicio {
 
         actualizarArreglo();
         
+        
+        crearCartas("src/recursos/cartasloteria.csv", arregloCartas);
+   
     }
-    
-    
-    
-    
     
     
     
@@ -349,5 +358,33 @@ public class VntInicio {
 //            System.out.println(m.getMessage());
         }
         
+     }
+     
+     /**
+      * Crea un archivo de objeto de tipo Cartas con la informacion del arreglo de las imagenes de las cartas y el archivo con la descripcion de estas
+      */
+     public void crearCartas(String ruta, ArrayList<ImageView> arrCartas){
+        guardadas=new ArrayList<>();
+         try{
+         //abrir archivo con la descripcion en orden
+         FileReader ge=new FileReader(ruta);
+         BufferedReader br=new BufferedReader(ge);
+
+         String linea;
+         while ((linea=br.readLine())!= null){
+             
+             String[] info=linea.split(",");
+             int numero=Integer.parseInt(info[0]);
+             String nombre=info[1];
+             
+             Carta carta=new Carta(nombre,numero,arrCartas.get(numero-1));
+             guardadas.add(carta);
+         }
+
+         }
+         catch(Exception  m){
+             System.err.println("CARTAS NO GENERADAS");
+             System.out.println(m.getMessage());
+         }
      }
 }
