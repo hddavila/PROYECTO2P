@@ -15,8 +15,8 @@ public class Cronometro extends Thread {
     
     public Cronometro(){
         this.activo = false;
-        show = new Label(Double.toString(now));
         this.now = 3; 
+        show = new Label(Double.toString(now));
     }
     
     public void inciar(){
