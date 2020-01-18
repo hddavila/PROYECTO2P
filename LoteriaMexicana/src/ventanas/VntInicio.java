@@ -158,13 +158,9 @@ public class VntInicio {
 
         actualizarArreglo();
         
-        
         crearCartas("src/recursos/cartasloteria.csv", arregloCartas);
    
     }
-    
-    
-    
     /**
      *
      * Reproduce el sonido del boton
