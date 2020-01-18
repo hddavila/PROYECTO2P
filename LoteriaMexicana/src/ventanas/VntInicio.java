@@ -130,7 +130,13 @@ public class VntInicio {
         btn_report.setOnAction(e->{
             sonido();
             VntReporte reporte=new VntReporte();
+            reporte.getBack().setOnMouseClicked(m->{
+            sonido();
+            reporte.getBack().getScene().setRoot(root);
+            });
             root.getScene().setRoot(reporte.getRoot());
+            
+            
         });
         
         //reproducir musica de fondo

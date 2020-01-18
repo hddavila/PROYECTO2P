@@ -18,12 +18,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import modelo.Partida;
+import static ventanas.VntInicio.sonido;
 
 /**
  *
@@ -35,7 +37,7 @@ public class VntReporte{
     TableView tableView;
     ArrayList<Partida> partida;
     String archivo="partida.ser";
-    
+    ImageView back;
 
     public VntReporte(){
         cargarPartidas();
@@ -67,14 +69,19 @@ public class VntReporte{
          
         HBox conTitulo=new HBox(10);
         Label lbl= new Label("Reporte");
-        conTitulo.getChildren().add(lbl);
+        
+        back=new ImageView("/recursos/back.png");
+        back.setPreserveRatio(true);
+        back.setFitWidth(50);
+        
+        
+        
+        conTitulo.getChildren().addAll(back,lbl);
         conTitulo.setAlignment(Pos.CENTER);
         
-<<<<<<< HEAD
-=======
-        root.setCenter(conTitulo);
->>>>>>> 89faf55bd6a3741edc22fa7d9280dddfc0f347e2
         
+        root.setTop(conTitulo);
+        root.setCenter(tableView);
     }
     
      
@@ -143,5 +150,12 @@ public class VntReporte{
         
         
     }
+
+    public ImageView getBack() {
+        return back;
+    }
+    
+    
+    
     
 }
