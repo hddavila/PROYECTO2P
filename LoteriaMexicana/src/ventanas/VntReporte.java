@@ -1,3 +1,4 @@
+package ventanas;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,11 +27,10 @@ import modelo.Partida;
 
 /**
  *
- * @author Doménica Briones
+ * @author Domï¿½nica Briones
  */
 public class VntReporte{
     
-    @Override
     BorderPane root;
     TableView tableView;
     ArrayList<Partida> partida;
@@ -138,3 +138,5 @@ public class VntReporte{
         
         
     }
+    
+}

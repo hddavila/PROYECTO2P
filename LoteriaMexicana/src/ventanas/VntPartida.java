@@ -5,19 +5,28 @@
  */
 package ventanas;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 import modelo.Jugador;
 import modelo.Partida;
 import paneles.PanelAlineacion;
+import static ventanas.VntInicio.sonido;
 
 /**
  *
@@ -71,11 +80,37 @@ public class VntPartida {
             //IZQUIERDA
                 //panel alineacion
                 PanelAlineacion alineacion=new PanelAlineacion(config.getAlineacion());
-                izquierda.getChildren().add(alineacion.getRoot());
+                BorderPane panelAlineacion=alineacion.getRoot();
+                panelAlineacion.setId("alineacion");
+                izquierda.getChildren().add(panelAlineacion);
             //ABAJO
                 HBox abajo=new HBox();
                 Button loteria=new Button("LOTERIA");
                 loteria.setAlignment(Pos.CENTER);
+                loteria.setMinWidth(500);
+                
+                loteria.setOnAction(e->{
+                    sonido();
+                    if(verificarAlineacion()==true){
+                        Alert mensaje=new Alert(AlertType.INFORMATION);
+                        DialogPane dialogPane = mensaje.getDialogPane();
+                        dialogPane.getStylesheets().add("/css/estiloMensajes.css");
+                        
+                        mensaje.setTitle(null);
+                        mensaje.setHeaderText(null);
+                        mensaje.setGraphic(null);
+                        mensaje.setContentText("GANASTE!!!");
+                        mensaje.showAndWait();
+                    
+                        Stage stage=new Stage();
+                        nuevo(stage);
+                        loteria.getScene().getWindow().hide();
+                        
+                    }
+                    
+                });
+                
+                
                 
                 abajo.getChildren().add(loteria);
                 abajo.setAlignment(Pos.CENTER);
@@ -101,4 +136,36 @@ public class VntPartida {
         return ge;
     }
     
+     public  void sonido(){
+        try{
+        String path="src/audios/button3.wav";
+        Media media = new Media(new File(path).toURI().toString());
+
+        MediaPlayer cad=new MediaPlayer(media);
+        
+        cad.play();
+        System.out.println("--------------\nSE REPRODUCE");
+        }
+        catch(Exception e){
+            System.out.println("NO SE REPRODUCE");
+        }
+    }
+     
+     public boolean verificarAlineacion(){
+         return true;
+     }
+     
+     
+     public void nuevo(Stage stage){
+        VntInicio inicio=new VntInicio();
+        
+        Scene escena=new Scene(inicio.getRoot(),900,500);
+
+        escena.getStylesheets().add("/css/estiloInicio.css");
+        
+        stage.setScene(escena);
+        stage.setTitle("Loteria Mexicana");
+//        stage.setResizable(false);
+        stage.show();
+     }
 }

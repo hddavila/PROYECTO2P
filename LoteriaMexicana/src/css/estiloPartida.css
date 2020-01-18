@@ -18,6 +18,18 @@ and open the template in the editor.
 }
 
 .button{
-    -fx-font-size: 20;
+    -fx-font-size: 30;
     -fx-font-weight: bold;
+    -fx-text-fill: yellow;
+    -fx-font-family: Times New Roman;
+    -fx-background-color: linear-gradient(#F9524F,#F26C5C);
+}
+
+#alineacion{
+     -fx-font-size: 20;
+     -fx-font-weight: bold;
+}
+
+.alert{
+    -fx-font-size: 30;
 }

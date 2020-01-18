@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -70,7 +71,12 @@ public class PanelAlineacion {
         
         Label lblTitulo=new Label("Forma de ganar");
         lblTitulo.setAlignment(Pos.CENTER);
-        root.setTop(lblTitulo);
+        
+        HBox header=new HBox();
+        header.getChildren().add(lblTitulo);
+        header.setAlignment(Pos.CENTER);
+        root.setTop(header);
+        
         Label forma=new Label();
         
         
