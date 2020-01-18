@@ -30,7 +30,6 @@ import modelo.Partida;
  */
 public class VntReporte{
     
-    @Override
     BorderPane root;
     TableView tableView;
     ArrayList<Partida> partida;
@@ -138,3 +137,5 @@ public class VntReporte{
         
         
     }
+    
+}
