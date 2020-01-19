@@ -34,6 +34,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import modelo.Carta;
 import modelo.Cronometro;
+import modelo.CronometroFull;
 import modelo.Jugador;
 import modelo.Partida;
 import paneles.PanelAlineacion;
@@ -101,11 +102,13 @@ public class VntPartida {
                 Label nombre=new Label(config.getNombreUsuario());
                 nombre.setId("jugador");
                 
-                Cronometro crono=new Cronometro();
-                crono.inciar();
+                CronometroFull crono = new CronometroFull();
+                crono.iniciarCronometro();
+                Label lblCronometro=crono.getLabel();
+                lblCronometro.setId("cronometro");
                 
 
-                info.getChildren().addAll(nombre,crono.getShow());
+                info.getChildren().addAll(nombre,lblCronometro);
                 info.setAlignment(Pos.CENTER);
                 cuadro.getChildren().addAll(cuadroInfo,info);
                 

@@ -41,3 +41,8 @@ and open the template in the editor.
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
     -fx-opacity: 0.90; 
 }
+
+#cronometro{
+    -fx-font-size: 18;
+    -fx-font-color: white;
+}
