@@ -17,6 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import modelo.Alineacion;
 import modelo.Cronometro;
+import modelo.Oponente;
 import paneles.PanelAlineacion;
 
 /**
@@ -28,12 +29,12 @@ public class prueba extends Application {
     @Override
     public void start(Stage primaryStage) {
         
-        Map<Integer,String> mapa=new HashMap<Integer,String>();
-        mapa.put(1,"Pablo");
-        System.out.println(mapa);
-        
-        String h="marcos,juan";
-        h.split(",");
+//        Map<Integer,String> mapa=new HashMap<Integer,String>();
+//        mapa.put(1,"Pablo");
+//        System.out.println(mapa);
+//        
+//        String h="marcos,juan";
+//        h.split(",");
         
     
         
@@ -56,7 +57,15 @@ public class prueba extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        launch(args);
+        
+//        launch(args);
+
+        Oponente op = new Oponente();
+        
+        Oponente op2 = new Oponente();
+        
+        System.out.println(op);
+        System.out.println(op2);
     }
     
 }

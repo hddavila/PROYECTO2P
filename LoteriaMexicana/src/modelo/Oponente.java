@@ -6,10 +6,10 @@
 //package modelo;
 //import java.util.ArrayList;
 //
-///**
-// *
-// * @author Doménica Briones
-// */
+/**
+ *
+ * @author Doménica Briones
+ */
 //public class Oponente extends Jugador{
 //    ArrayList<Carta> anunciadas;
 //    ArrayList<Carta> cartas_jug;
@@ -42,3 +42,34 @@
 //        
 //    }
 //}
+
+package modelo;
+
+/**
+ *
+ * @author Gabriel Castro
+ */
+
+public class Oponente extends Jugador {
+    private static int n = 1;
+    private String nombre  = "CPU" + n;
+    
+/**
+ *
+ * Constructor que enumera los objetos creados.
+ */    
+    public Oponente() {
+        super();
+        n += 1;
+    }
+    
+/**
+ *
+ * Metodo toString sobreescrito.
+ */    
+    @Override
+    public String toString(){
+        return nombre;
+    }
+    
+}
