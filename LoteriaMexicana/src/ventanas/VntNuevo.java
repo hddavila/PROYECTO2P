@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -32,6 +33,7 @@ import static ventanas.VntInicio.sonido;
  */
 public class VntNuevo {
     TextField txtNombre;
+    StackPane back;
     BorderPane root;
     ImageView salir;
     
@@ -43,7 +45,19 @@ public class VntNuevo {
     public BorderPane getRoot(){
         return root;
     }
+    
+    public StackPane getBackRoot(){
+        return back;
+    }
     public void createContent(){
+        back = new StackPane();
+        try{
+            ImageView background = new ImageView(new Image("/recursos/background.png"));
+        }
+        catch(Exception e){
+            System.err.println("No se pudo cargar el fondo frijoles");
+        }
+        
         root=new BorderPane();
         root.setId("fondoNuevo");
         txtNombre=new TextField();
@@ -102,6 +116,7 @@ public class VntNuevo {
         
         ventana.getChildren().addAll(cuadro,columna,salir);
         root.setCenter(ventana);
+        back.getChildren().add(root);
     }
     
     /**

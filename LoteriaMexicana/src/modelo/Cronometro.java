@@ -17,7 +17,7 @@ public class Cronometro extends Thread {
 /**
  *
  * Constructor que setea el cronometro como inactivo, inicia en 3 y 
- * crea la Label para mostrar el tiempo;
+ * crea la Label para mostrar el tiempo.
  */
     public Cronometro(){
         this.activo = false;
@@ -44,11 +44,11 @@ public class Cronometro extends Thread {
     
     public void parar(){
         this.activo  = false;
-        hilo.stop();
+        
     }
 /**
  *
- * Funcion para reiniciar el cronometro, settea el tiempo en 3
+ * Funcion para reiniciar el cronometro, settea el tiempo en 3.
  */
     public void reiniciar(){
         this.now = 3;

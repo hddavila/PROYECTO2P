@@ -13,10 +13,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import modelo.Alineacion;
 import modelo.Cronometro;
+import modelo.CronometroFull;
 import modelo.Oponente;
 import paneles.PanelAlineacion;
 
@@ -42,10 +45,34 @@ public class prueba extends Application {
         
 //        PanelAlineacion ali=new PanelAlineacion(Alineacion.CUALQUIERESQUINA);
 //        
-//        Scene scene = new Scene(ali.getRoot(), 300, 230);
-//        primaryStage.setTitle("Hello World!");
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
+        VBox box = new VBox(25);
+        CronometroFull crono = new CronometroFull();
+        box.getChildren().add(crono.getLabel());
+        
+        Button start = new Button("Iniciar");
+        start.setOnAction(e->{
+            crono.iniciarCronometro();
+        });
+        
+        Button stop = new Button("Parar");
+        stop.setOnAction(f->{
+            crono.pararCronometro();
+        });
+        
+        Button restart = new Button("Reiniciar");
+        restart.setOnAction(g->{
+           crono.reiniciarCronometro();
+        });
+        
+        HBox botones = new HBox(10);
+        botones.getChildren().addAll(start, stop, restart);
+        box.getChildren().add(botones);
+        
+        Scene scene = new Scene(box, 300, 230);
+        primaryStage.setTitle("Hello World!");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        
 //        
 //        Random aleatorio=new Random();
 //        System.out.println(aleatorio.nextInt(2));
@@ -58,14 +85,9 @@ public class prueba extends Application {
      */
     public static void main(String[] args) {
         
-//        launch(args);
-
-        Oponente op = new Oponente();
+        launch(args);
         
-        Oponente op2 = new Oponente();
         
-        System.out.println(op);
-        System.out.println(op2);
     }
     
 }

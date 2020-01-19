@@ -124,7 +124,7 @@ public class VntInicio {
               nuevo.getSalir().setOnMouseClicked(k->{
                   nuevo.getSalir().getScene().setRoot(root);
               });
-              root.getScene().setRoot(nuevo.getRoot());
+              root.getScene().setRoot(nuevo.getBackRoot());
         });
         
         
