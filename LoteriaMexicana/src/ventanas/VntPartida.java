@@ -26,9 +26,11 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import modelo.Carta;
 import modelo.Cronometro;
@@ -48,7 +50,7 @@ public class VntPartida {
     private BorderPane contenedor;
     private Jugador player;
     private VBox izquierda;
-    private VBox centro;
+    private HBox centro;
     private VBox derecha;
     
     
@@ -76,7 +78,7 @@ public class VntPartida {
         //incializar todos lo contenedores
         contenedor=new BorderPane();
         izquierda=new VBox();
-        centro=new VBox();
+        centro=new HBox();
         derecha=new VBox();
         info=new VBox();
         
@@ -93,6 +95,9 @@ public class VntPartida {
             
             //DERECHA
                 //informacion del jugador
+                StackPane cuadro=new StackPane();
+                Rectangle cuadroInfo=new Rectangle(300,100);
+                cuadroInfo.setId("cuadroInfo");
                 Label nombre=new Label(config.getNombreUsuario());
                 nombre.setId("jugador");
                 
@@ -101,7 +106,9 @@ public class VntPartida {
                 
 
                 info.getChildren().addAll(nombre,crono.getShow());
-                derecha.getChildren().addAll(info);
+                info.setAlignment(Pos.CENTER);
+                cuadro.getChildren().addAll(cuadroInfo,info);
+                derecha.getChildren().addAll(cuadro);
             
             //IZQUIERDA
                 //panel alineacion
@@ -116,11 +123,21 @@ public class VntPartida {
                 Tablero tablero=new Tablero(guardadas);
                 centro.getChildren().add(tablero.getRoot());
                 
-            //ABAJO
-                HBox abajo=new HBox();
-                Button loteria=new Button("LOTERIA");
+                //creacion del boton loteria
+                Button loteria=new Button("L\nO\nT\nE\nR\nI\nA");
                 loteria.setAlignment(Pos.CENTER);
-                loteria.setMinWidth(500);
+                loteria.setMinWidth(85);
+                loteria.setMaxWidth(30);
+                loteria.setMinHeight(750);
+                loteria.setMaxHeight(100);
+                
+                loteria.setOnMouseEntered(e->{
+                    loteria.setStyle("-fx-opacity: 1;");
+                });
+                
+                loteria.setOnMouseExited(e->{
+                     loteria.setStyle("-fx-opacity: 0.6;");
+                });
                 
                 loteria.setOnAction(e->{
                     sonido();
@@ -142,18 +159,11 @@ public class VntPartida {
                     }
                     
                 });
+
+                centro.getChildren().add(loteria);
+                centro.setAlignment(Pos.CENTER);
                 
-                
-                
-                abajo.getChildren().add(loteria);
-                abajo.setAlignment(Pos.CENTER);
-                
-                contenedor.setBottom(abajo);
-           
-            
-                
-                
-                
+   
         } catch (Exception ex) {
             System.out.println("NO SE PUDO CARGAR LA INFORMACION");
             System.out.println(ex.getMessage());
