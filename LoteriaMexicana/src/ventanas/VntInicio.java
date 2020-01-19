@@ -122,6 +122,7 @@ public class VntInicio {
               sonido();
               VntNuevo nuevo=new VntNuevo();
               nuevo.getSalir().setOnMouseClicked(k->{
+                  sonido();
                   nuevo.getSalir().getScene().setRoot(root);
               });
               root.getScene().setRoot(nuevo.getBackRoot());
@@ -131,7 +132,13 @@ public class VntInicio {
         //evento del boton Configuraciones
         btn_config.setOnAction(e->{
             sonido();
-            configuracion();
+            VntConfiguracion config=new VntConfiguracion();
+            config.getBack().setOnMouseClicked(m->{
+                sonido();
+                config.actualizarConfig();
+                config.getBack().getScene().setRoot(root);
+            });
+            root.getScene().setRoot(config.getRoot());
         });
         
         //evento del boton Reporte
@@ -153,9 +160,9 @@ public class VntInicio {
         
         //generar configuracion incial por defecto;
         crearConfig();
-
         
-   
+        
+        
     }
     /**
      *
@@ -194,82 +201,9 @@ public class VntInicio {
             System.out.println("NO SE REPRODUCE");
         }
     }
-    
-    /**
-     *
-     * Muestra la ventana configuracion en donde se podra ajustar el juego y al salir de esta ventana se actualizara
-     * el archivo que existia por defecto de la configuracion del juego
-     */
-    public void configuracion(){
-        BorderPane config=new BorderPane();
-        
-        Rectangle base1=new Rectangle(350,100);
-        base1.setId("base1");
-        
-        Rectangle base2=new Rectangle(350,100);
-        base2.setId("base2");
-        
-        StackPane f1=new StackPane();
-        StackPane f2=new StackPane();
-        
-        ImageView back=new ImageView("/recursos/back.png");
-        back.setPreserveRatio(true);
-        back.setFitWidth(50);
 
-        Label lblConfig=new Label("Configuracion");
-        HBox header=new HBox(40);
-        header.setAlignment(Pos.CENTER);
-        header.getChildren().addAll(back,lblConfig);
-        
-        config.setTop(header);
-        
-        HBox fila1=new HBox(10);
-        Label lblCantidad=new Label("Cantidad de oponentes");
-        ComboBox cantidad=new ComboBox();
-        cantidad.getItems().addAll(0,1,2);
-        cantidad.setValue(1);
-        
-        fila1.getChildren().addAll(lblCantidad,cantidad);
-        fila1.setAlignment(Pos.CENTER);
-        
-        
-        HBox fila2=new HBox(10);
-        Label lblVisibilidad=new Label("Visibilidad oponentes");
-        Button btn_activar=new Button("activar");
-        
-        fila2.getChildren().addAll(lblVisibilidad,btn_activar);
-        fila2.setAlignment(Pos.CENTER);
-        
-        
-        f1.getChildren().addAll(base1,fila1);
-        f1.setAlignment(Pos.CENTER);
-        
-        
-        f2.getChildren().addAll(base2,fila2);
-        f2.setAlignment(Pos.CENTER);
-        
-        
-        VBox columna2=new VBox(20);
-        columna2.setAlignment(Pos.CENTER);
-        columna2.getChildren().addAll(f1,f2);
-        
-        config.setCenter(columna2);
-        
-        root.getScene().setRoot(config);
-        
-        
-        
-        back.setOnMouseClicked(m->{
-            sonido();
-            config.getScene().setRoot(root);
-        });
-        
-        
-        
-    }
-    
     /**
-     * Metodo que genera el archivo con la configuracion incial por defecto al abrir el juego
+     * Genera el archivo con la configuracion incial por defecto al abrir el juego
      */
     public void crearConfig(){
        
@@ -290,7 +224,7 @@ public class VntInicio {
             Random aleatorio=new Random();
             int indice=aleatorio.nextInt(arreglo.size());
            
-            Partida partida=new Partida("",arreglo.get(indice),null);
+            Partida partida=new Partida("",arreglo.get(indice),null,1); //(nombre inicial, alineacion aleatoria, tiempo nulo (aun no se ha jugado),cantidad oponentes por defecto)
  
             fout.writeObject(partida);
             

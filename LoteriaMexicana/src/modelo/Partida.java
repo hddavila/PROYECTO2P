@@ -15,15 +15,17 @@ public class Partida implements Serializable{
     String nombreUsuario;
     Alineacion alineacion;
     Tiempo tiempo;
+    int cantidadOponentes;
     
     public Partida(){
     
     }
     
-    public Partida(String nombre,Alineacion alineacion,Tiempo tiempo){
-        this.nombreUsuario=nombre;
-        this.alineacion=alineacion;
-        this.tiempo=tiempo;
+    public Partida(String nombreUsuario, Alineacion alineacion, Tiempo tiempo, int cantidadOponentes) {
+        this.nombreUsuario = nombreUsuario;
+        this.alineacion = alineacion;
+        this.tiempo = tiempo;
+        this.cantidadOponentes = cantidadOponentes;
     }
 
     public String getNombreUsuario() {
@@ -49,10 +51,19 @@ public class Partida implements Serializable{
     public void setTiempo(Tiempo tiempo) {
         this.tiempo = tiempo;
     }
-    
+
+    public int getCantidadOponentes() {
+        return cantidadOponentes;
+    }
+
+    public void setCantidadOponentes(int cantidadOponentes) {
+        this.cantidadOponentes = cantidadOponentes;
+    }
+
     @Override
     public String toString() {
-        return "Partida{" + "nombreUsuario=" + nombreUsuario + ", alineacion=" + alineacion + ", tiempo=" + tiempo + '}';
+        return "Partida{" + "nombreUsuario=" + nombreUsuario + ", alineacion=" + alineacion + ", tiempo=" + tiempo + ", cantidadOponentes=" + cantidadOponentes + '}';
     }
+    
     
 }

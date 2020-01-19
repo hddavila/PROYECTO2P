@@ -69,7 +69,7 @@ public class VntNuevo {
         Rectangle cuadro=new Rectangle(500,200);
         cuadro.setId("cuadroNuevo");
         
-         salir=new ImageView("/recursos/salir.png");
+        salir=new ImageView("/recursos/salir.png");
         salir.setScaleX(0.25);
         salir.setScaleY(0.25);
         salir.setTranslateX(230);
@@ -92,7 +92,7 @@ public class VntNuevo {
                 
                 Stage stage=new Stage();
                 VntPartida pantalla=new VntPartida();
-                Scene escena=new Scene(pantalla.getContenedor(),1200,800);
+                Scene escena=new Scene(pantalla.getContenedor(),1300,800);
                 escena.getStylesheets().add("/css/estiloPartida.css");
                         
                 stage.setScene(escena);

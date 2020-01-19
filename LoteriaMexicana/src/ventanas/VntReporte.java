@@ -55,9 +55,12 @@ public class VntReporte{
         
         String[] datos={"Usuario","Alineacion","Tiempo"};
         tableView= new TableView();
+        tableView.setPlaceholder(new Label("No existen partidas jugadas"));
         for (String campo:datos){
             
             TableColumn<String,Partida> columna=new TableColumn<>(campo);
+            columna.setMinWidth(150);
+            columna.setMaxWidth(200);
             columna.setCellValueFactory(new PropertyValueFactory<>(campo.toLowerCase()));
             tableView.getColumns().add(columna);
         }

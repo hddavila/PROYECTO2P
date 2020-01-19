@@ -17,12 +17,13 @@ and open the template in the editor.
     -fx-font-weight: bold;
 }
 
-.button{
-    -fx-font-size: 30;
+#loteria{
+    -fx-font-size: 40;
     -fx-font-weight: bold;
     -fx-text-fill: yellow;
-    -fx-font-family: Times New Roman;
-    -fx-background-color: linear-gradient(#F9524F,#F26C5C);
+    -fx-font-family: "Impact";
+    -fx-background-color: linear-gradient(#F9524F,#F26C5C);  
+    -fx-opacity: 0.60;
 }
 
 #alineacion{
@@ -32,4 +33,11 @@ and open the template in the editor.
 
 .alert{
     -fx-font-size: 30;
+}
+
+
+#cuadroInfo{
+    -fx-fill: #75BADC;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+    -fx-opacity: 0.90; 
 }
