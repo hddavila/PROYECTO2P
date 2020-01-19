@@ -108,7 +108,16 @@ public class VntPartida {
                 info.getChildren().addAll(nombre,crono.getShow());
                 info.setAlignment(Pos.CENTER);
                 cuadro.getChildren().addAll(cuadroInfo,info);
-                derecha.getChildren().addAll(cuadro);
+                
+                
+                //boton finalizar partida(no se registra el juego porque no se termino)
+                Button finalizar=new Button("Finalizar partida");
+                finalizar.setOnAction(e->{
+                    Stage stage=new Stage();
+                    nuevo(stage);
+                    finalizar.getScene().getWindow().hide();
+                });
+                derecha.getChildren().addAll(cuadro,finalizar);
             
             //IZQUIERDA
                 //panel alineacion
@@ -125,10 +134,11 @@ public class VntPartida {
                 
                 //creacion del boton loteria
                 Button loteria=new Button("L\nO\nT\nE\nR\nI\nA");
+                loteria.setId("loteria");
                 loteria.setAlignment(Pos.CENTER);
-                loteria.setMinWidth(85);
+                loteria.setMinWidth(90);
                 loteria.setMaxWidth(30);
-                loteria.setMinHeight(750);
+                loteria.setMinHeight(600);
                 loteria.setMaxHeight(100);
                 
                 loteria.setOnMouseEntered(e->{

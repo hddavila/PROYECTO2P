@@ -55,7 +55,7 @@ public class VntNuevo {
         Rectangle cuadro=new Rectangle(500,200);
         cuadro.setId("cuadroNuevo");
         
-         salir=new ImageView("/recursos/salir.png");
+        salir=new ImageView("/recursos/salir.png");
         salir.setScaleX(0.25);
         salir.setScaleY(0.25);
         salir.setTranslateX(230);
