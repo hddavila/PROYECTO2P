@@ -53,7 +53,7 @@ public class VntReporte{
     private void createContent(){
         root=new BorderPane();
         
-        String[] datos={"Usuario","Alineacion","Tiempo"};
+        String[] datos={"Usuario","Alineacion","Tiempo", "CantidadOponente", "Visibilidad"};
         tableView= new TableView();
         tableView.setPlaceholder(new Label("No existen partidas jugadas"));
         for (String campo:datos){
