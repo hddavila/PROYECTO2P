@@ -3,6 +3,8 @@ package modelo;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -13,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import ventanas.VntPartida;
 
 /**
  *
@@ -20,8 +23,8 @@ import javafx.scene.media.MediaPlayer;
  */
 public class Tablero {
     private ArrayList<Carta> cartas_Jug;
-    private ArrayList<Carta> anunciadas;
     private GridPane root;
+    private Map<Integer,ImageView> mapa;
     private boolean condicion;
     
     /**
@@ -38,6 +41,7 @@ public class Tablero {
         
         this.cartas_Jug = cartas_Jug;
         this.condicion=true;
+        this.mapa=new HashMap<Integer,ImageView>();
         crearTablero();
     }
     
@@ -73,6 +77,7 @@ public class Tablero {
                   //ESTA ES UNA PRUEBA DE LA ACCION DE LA IMAGEN (NO ES LA FUNCION FINAL)
                   agregar.setOnMouseClicked(e->{
                       
+                      verificarCarta(carta.getNumero(),mapa);
                       //si la condicion es correcta añade el frijol a la carta y esta se bloquea
                       if(condicion){
                           //agregar el frijol encima
@@ -90,24 +95,19 @@ public class Tablero {
                           agregar.setStyle("-fx-opacity:0.3;");
                           tarjeta.setDisable(true);
 
-                          Alert mensaje=new Alert(AlertType.INFORMATION);
-                          mensaje.setHeaderText(null);
-                          mensaje.setContentText(carta.getNumero()+" "+carta.getNombre());
-                          mensaje.showAndWait();
+//                          Alert mensaje=new Alert(AlertType.INFORMATION);
+//                          mensaje.setHeaderText(null);
+//                          mensaje.setContentText(carta.getNumero()+" "+carta.getNombre());
+//                          mensaje.showAndWait();
                       }
                       //si la condicion es incorrecta se agrega una image de una equis por 2 segundos y luego se quita
                       else{
-                           try{
-                               sonido();
-                               ImageView incorrecto=new ImageView("/recursos/salir.png");
-                               incorrecto.setFitWidth(50);
-                               incorrecto.setFitHeight(50);
-                               tarjeta.getChildren().add(incorrecto);
-//                               tarjeta.getChildren().removeAll(incorrecto);
-                           }
-                           catch(Exception m){
-                               System.out.println("ERROR AL PONER LA EQUIS");
-                           }
+                          
+                          HiloIncorrecto fail = new HiloIncorrecto();
+                          tarjeta.getChildren().add(fail.getIncorrecto());
+                          fail.start();
+                          
+                           
                       }
                       
                   });
@@ -141,7 +141,20 @@ public class Tablero {
             System.out.println("NO SE REPRODUCE");
         }
     }
-    
+
+    public void verificarCarta(Integer numero,Map<Integer,ImageView> mapa){
+        if(mapa.containsKey(numero)){
+            condicion=true;
+        }
+        else{
+            condicion=false;
+        }
+        
+    }
+
+    public void setMapa(Map<Integer, ImageView> mapa) {
+        this.mapa = mapa;
+    }
     
 
    

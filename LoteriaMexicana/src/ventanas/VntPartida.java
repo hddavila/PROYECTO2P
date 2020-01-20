@@ -65,8 +65,8 @@ public class VntPartida {
     private VBox info;
     
     private ArrayList<ImageView> arregloCartas;
-    private  ArrayList<Carta> guardadas;
-    private Map<Integer,ImageView> anunciadas;
+    private ArrayList<Carta> guardadas;
+   
     
     private Label lblCronometro;
     
@@ -132,6 +132,8 @@ public class VntPartida {
                 mazo=new PanelMazo(guardadas);
                 mazo.anunciar();
                 
+                
+                
                 //boton finalizar partida(no se registra el juego porque no se termino)
                 Button finalizar=new Button("Finalizar partida");
                 finalizar.setAlignment(Pos.CENTER);
@@ -154,6 +156,8 @@ public class VntPartida {
                 
             //CENTRO
                 Tablero tablero=new Tablero(guardadas);
+                tablero.setMapa(mazo.getAnunciadas());
+                
                 centro.getChildren().add(tablero.getRoot());
 
                 //creacion del boton loteria
