@@ -41,6 +41,7 @@ import paneles.PanelAlineacion;
 import static ventanas.VntInicio.sonido;
 
 import modelo.Tablero;
+import paneles.PanelMazo;
 
 /**
  *
@@ -71,6 +72,9 @@ public class VntPartida {
         return contenedor;
     }
     
+    /**
+     * Genera el contenido de la ventana Partida
+     */
     public void createContent(){
         
        actualizarArreglo();
@@ -113,6 +117,9 @@ public class VntPartida {
                 cuadro.getChildren().addAll(cuadroInfo,info);
                 
                 
+                PanelMazo mazo=new PanelMazo(guardadas);
+                mazo.anunciar();
+                
                 //boton finalizar partida(no se registra el juego porque no se termino)
                 Button finalizar=new Button("Finalizar partida");
                 finalizar.setOnAction(e->{
@@ -120,7 +127,8 @@ public class VntPartida {
                     nuevo(stage);
                     finalizar.getScene().getWindow().hide();
                 });
-                derecha.getChildren().addAll(cuadro,finalizar);
+                
+                derecha.getChildren().addAll(cuadro,mazo.getImgCarta(),finalizar);
             
             //IZQUIERDA
                 //panel alineacion
@@ -178,7 +186,7 @@ public class VntPartida {
                 
    
         } catch (Exception ex) {
-            System.out.println("NO SE PUDO CARGAR LA INFORMACION");
+            System.err.println("NO SE PUDO CARGAR LA INFORMACION");
             System.out.println(ex.getMessage());
         }
 
@@ -193,7 +201,9 @@ public class VntPartida {
         Partida ge=(Partida) saut.readObject();
         return ge;
     }
-    
+    /**
+     * Metodo que reproduce el sonido de button3.wav
+     */
      public  void sonido(){
         try{
         String path="src/audios/button3.wav";
@@ -227,7 +237,10 @@ public class VntPartida {
         stage.show();
      }
      
-     
+     /**
+      * Genera el arreglo de con los Objetos ImageView de las cartas recortadas de los arhivos con las cartas
+      *  
+      */
      public void obtenerCartas(String ruta,int ancho,int alto)throws Exception{
         
          Image tabla=new Image(ruta);
@@ -251,7 +264,9 @@ public class VntPartida {
             posy=posy+alto;    
         }   
      }    
-    
+     /**
+      * Actualiza el arreglo de las Imagenes de la cartas que contienen cartas blancas debido al ultimo archivo de las cartas
+      */
      public void actualizarArreglo(){
         
         //genera la lista de cartas a partir de la imagenes

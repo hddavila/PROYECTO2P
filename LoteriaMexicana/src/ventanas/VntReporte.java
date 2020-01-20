@@ -59,8 +59,8 @@ public class VntReporte{
         for (String campo:datos){
             
             TableColumn<String,Partida> columna=new TableColumn<>(campo);
-            columna.setMinWidth(150);
-            columna.setMaxWidth(200);
+            columna.setMinWidth(200);
+            columna.setMaxWidth(250);
             columna.setCellValueFactory(new PropertyValueFactory<>(campo.toLowerCase()));
             tableView.getColumns().add(columna);
         }
