@@ -37,7 +37,7 @@ public class Tablero {
         root.setHgap(-50);
         
         this.cartas_Jug = cartas_Jug;
-        this.condicion=false;
+        this.condicion=true;
         crearTablero();
     }
     
@@ -74,7 +74,7 @@ public class Tablero {
                   agregar.setOnMouseClicked(e->{
                       
                       //si la condicion es correcta añade el frijol a la carta y esta se bloquea
-                      if(condicion==true){
+                      if(condicion){
                           //agregar el frijol encima
                           try{
                               ImageView frijol=new ImageView("/recursos/frijol3.png");
@@ -117,7 +117,7 @@ public class Tablero {
                   salieron.add(pos);
               }
               else{
-                  columna++;
+                  columna--;
               }
           }
       }
