@@ -53,7 +53,7 @@ public class CronometroFull extends Thread {
                 else mil = Integer.toString(milesimas);
                  
                 
-                time =  hor + ":" + min + ":" + seg + ":" + mil ;
+                time = min + ":" + seg;
                 Platform.runLater(()->show.setText(time));
             }
         }
@@ -86,7 +86,7 @@ public class CronometroFull extends Thread {
     public Label getLabel(){
         return show;
     }
+ 
     
-
     
 }
