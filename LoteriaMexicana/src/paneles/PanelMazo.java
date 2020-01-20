@@ -62,7 +62,8 @@ public class PanelMazo extends Thread{
                     
                     
                     Platform.runLater(()-> imgCarta.setImage(imagen));
-                    hilo.sleep(3000);
+                    //duracion 4 segundos
+                    hilo.sleep(4000);
                 }
             }
         }
@@ -87,6 +88,12 @@ public class PanelMazo extends Thread{
     public ImageView getImgCarta() {
         return imgCarta;
     }
+
+    public Map<Integer, ImageView> getAnunciadas() {
+        return anunciadas;
+    }
+    
+    
     
     
     

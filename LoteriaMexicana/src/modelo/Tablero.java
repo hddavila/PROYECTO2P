@@ -1,6 +1,7 @@
 
 package modelo;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import javafx.geometry.Pos;
@@ -10,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  *
@@ -19,6 +22,7 @@ public class Tablero {
     private ArrayList<Carta> cartas_Jug;
     private ArrayList<Carta> anunciadas;
     private GridPane root;
+    private boolean condicion;
     
     /**
      * 
@@ -33,8 +37,16 @@ public class Tablero {
         root.setHgap(-50);
         
         this.cartas_Jug = cartas_Jug;
+        this.condicion=false;
         crearTablero();
     }
+    
+    
+     public GridPane getRoot() {
+        return root;
+    }
+    
+    
     /**
      * Genera el contenido del tablero con las cartas para el Jugador
      */
@@ -60,25 +72,43 @@ public class Tablero {
                   //declarar la accion de la carta
                   //ESTA ES UNA PRUEBA DE LA ACCION DE LA IMAGEN (NO ES LA FUNCION FINAL)
                   agregar.setOnMouseClicked(e->{
-                      //agregar el frijol encima
-                      try{
-                          ImageView frijol=new ImageView("/recursos/frijol3.png");
-                          frijol.setFitWidth(50);
-                          frijol.setFitHeight(50);
-                          frijol.setStyle("-fx-opacity:0.90;");
-                          tarjeta.getChildren().add(frijol);   
-                      }catch(Exception m){
-                          System.out.println("No se pudo agregar el frijol");
-                      }
-                      //bloquear el stackpane luego de posicion el frijol
                       
-                      agregar.setStyle("-fx-opacity:0.3;");
-                      tarjeta.setDisable(true);
-                     
-                      Alert mensaje=new Alert(AlertType.INFORMATION);
-                      mensaje.setHeaderText(null);
-                      mensaje.setContentText(carta.getNumero()+" "+carta.getNombre());
-                      mensaje.showAndWait();
+                      //si la condicion es correcta añade el frijol a la carta y esta se bloquea
+                      if(condicion==true){
+                          //agregar el frijol encima
+                          try{
+                              ImageView frijol=new ImageView("/recursos/frijol3.png");
+                              frijol.setFitWidth(50);
+                              frijol.setFitHeight(50);
+                              frijol.setStyle("-fx-opacity:0.90;");
+                              tarjeta.getChildren().add(frijol);   
+                          }catch(Exception m){
+                              System.out.println("No se pudo agregar el frijol");
+                          }
+                          //bloquear el stackpane luego de posicion el frijol
+
+                          agregar.setStyle("-fx-opacity:0.3;");
+                          tarjeta.setDisable(true);
+
+                          Alert mensaje=new Alert(AlertType.INFORMATION);
+                          mensaje.setHeaderText(null);
+                          mensaje.setContentText(carta.getNumero()+" "+carta.getNombre());
+                          mensaje.showAndWait();
+                      }
+                      //si la condicion es incorrecta se agrega una image de una equis por 2 segundos y luego se quita
+                      else{
+                           try{
+                               sonido();
+                               ImageView incorrecto=new ImageView("/recursos/salir.png");
+                               incorrecto.setFitWidth(50);
+                               incorrecto.setFitHeight(50);
+                               tarjeta.getChildren().add(incorrecto);
+//                               tarjeta.getChildren().removeAll(incorrecto);
+                           }
+                           catch(Exception m){
+                               System.out.println("ERROR AL PONER LA EQUIS");
+                           }
+                      }
                       
                   });
                   
@@ -94,15 +124,26 @@ public class Tablero {
 //                
     }
     
-    public void anunciar(){
-        
-        
-    }
+     /**
+     * Metodo que reproduce el sonido de error.wav
+     */
+     public  void sonido(){
+        try{
+        String path="src/audios/error.wav";
+        Media media = new Media(new File(path).toURI().toString());
 
-    public GridPane getRoot() {
-        return root;
+        MediaPlayer cad=new MediaPlayer(media);
+        
+        cad.play();
+        System.out.println("--------------\nSE REPRODUCE");
+        }
+        catch(Exception e){
+            System.out.println("NO SE REPRODUCE");
+        }
     }
     
     
+
+   
     
 }

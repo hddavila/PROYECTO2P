@@ -8,9 +8,13 @@ package ventanas;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.geometry.Pos;
@@ -41,6 +45,7 @@ import paneles.PanelAlineacion;
 import static ventanas.VntInicio.sonido;
 
 import modelo.Tablero;
+import modelo.Tiempo;
 import paneles.PanelMazo;
 
 /**
@@ -60,7 +65,14 @@ public class VntPartida {
     private VBox info;
     
     private ArrayList<ImageView> arregloCartas;
-    public  ArrayList<Carta> guardadas;
+    private  ArrayList<Carta> guardadas;
+    private Map<Integer,ImageView> anunciadas;
+    
+    private Label lblCronometro;
+    
+
+    
+    PanelMazo mazo;
     
     public VntPartida(){
         arregloCartas=new ArrayList<>();
@@ -108,7 +120,7 @@ public class VntPartida {
                 
                 CronometroFull crono = new CronometroFull();
                 crono.iniciarCronometro();
-                Label lblCronometro=crono.getLabel();
+                lblCronometro=crono.getLabel();
                 lblCronometro.setId("cronometro");
                 
 
@@ -117,11 +129,12 @@ public class VntPartida {
                 cuadro.getChildren().addAll(cuadroInfo,info);
                 
                 
-                PanelMazo mazo=new PanelMazo(guardadas);
+                mazo=new PanelMazo(guardadas);
                 mazo.anunciar();
                 
                 //boton finalizar partida(no se registra el juego porque no se termino)
                 Button finalizar=new Button("Finalizar partida");
+                finalizar.setAlignment(Pos.CENTER);
                 finalizar.setOnAction(e->{
                     Stage stage=new Stage();
                     nuevo(stage);
@@ -142,7 +155,7 @@ public class VntPartida {
             //CENTRO
                 Tablero tablero=new Tablero(guardadas);
                 centro.getChildren().add(tablero.getRoot());
-                
+
                 //creacion del boton loteria
                 Button loteria=new Button("L\nO\nT\nE\nR\nI\nA");
                 loteria.setId("loteria");
@@ -163,6 +176,9 @@ public class VntPartida {
                 loteria.setOnAction(e->{
                     sonido();
                     if(verificarAlineacion()==true){
+                        crono.pararCronometro();
+                        mazo.parar();
+                        victoria();
                         Alert mensaje=new Alert(AlertType.INFORMATION);
                         DialogPane dialogPane = mensaje.getDialogPane();
                         dialogPane.getStylesheets().add("/css/estiloMensajes.css");
@@ -172,7 +188,32 @@ public class VntPartida {
                         mensaje.setGraphic(null);
                         mensaje.setContentText("GANASTE!!!");
                         mensaje.showAndWait();
+                        
+                        actualizarConfig();
+                        guardarPartida();
+                        
+                        Stage stage=new Stage();
+                        nuevo(stage);
+                        loteria.getScene().getWindow().hide();
+                        
+                    }
+                    else{
+                        crono.pararCronometro();
+                        mazo.parar();
+                        perdida();
+                        Alert mensaje=new Alert(AlertType.INFORMATION);
+                        DialogPane dialogPane = mensaje.getDialogPane();
+                        dialogPane.getStylesheets().add("/css/estiloMensajes.css");
+                        
+                        mensaje.setTitle(null);
+                        mensaje.setHeaderText(null);
+                        mensaje.setGraphic(null);
+                        mensaje.setContentText("PERDISTE :(");
+                        mensaje.showAndWait();
                     
+                        actualizarConfig();
+                        guardarPartida();
+                        
                         Stage stage=new Stage();
                         nuevo(stage);
                         loteria.getScene().getWindow().hide();
@@ -201,6 +242,88 @@ public class VntPartida {
         Partida ge=(Partida) saut.readObject();
         return ge;
     }
+    
+    /**
+     * Almacena la partida finalizada como objeto Partida en el archivo partida.ser
+     */
+    public void guardarPartida(){
+      try{
+        ObjectInputStream saut=new ObjectInputStream(new FileInputStream("src/partidas/partida.ser"));
+        ArrayList<Partida> ge=(ArrayList<Partida>) saut.readObject();
+
+        ge.add(recuperarConfig());
+               
+        System.out.println(ge.toString()); //---------------borrar------------------------------------
+        
+        saut.close();
+        //sobreescribir el archivo 
+        ObjectOutputStream fout=new ObjectOutputStream(new FileOutputStream("src/partidas/partida.ser"));
+        
+        fout.writeObject(ge);
+        fout.close();
+        
+        System.out.println("ARCHIVO ACTUALIZADO CORRECTAMENTE");
+  
+       }
+       catch(Exception e){
+           System.err.println("El ARCHIVO NO SE PUDO ACTUALIZAR");
+           System.err.println("SE GENERA EL ARCHIVO");
+           try{
+               ObjectOutputStream saud=new ObjectOutputStream(new FileOutputStream("src/partidas/partida.ser"));
+               ArrayList<Partida> partidas=new ArrayList<>();
+               partidas.add(recuperarConfig());
+               saud.writeObject(partidas);
+               saud.flush();
+               saud.close();
+           }
+           catch(Exception j){
+               System.err.println("NO SE PUEDO GENERAR EL ARCHIVO DE LAS PARTIDAS");
+               System.out.println(j.getMessage());
+           }
+       }
+        
+    }
+    
+    
+    
+    
+    
+    
+    /**
+     * Actualiza el archivo temporal de configuracion con el tiempo jugado y la fecha actual to en un objeto Tiempo
+     */
+     public void actualizarConfig(){
+       try{
+        ObjectInputStream saut=new ObjectInputStream(new FileInputStream("src/partidas/config.ser"));
+        Partida ge=(Partida) saut.readObject();
+
+        
+        //Sobreescribir el Onjeto tiempo al que se genero al terminar la partida
+        Date fecha=new Date();
+        
+        Tiempo tiempo=new Tiempo(fecha,lblCronometro.getText());
+        ge.setTiempo(tiempo);
+        
+                
+        System.out.println(ge.toString()); //---------------borrar------------------------------------
+        
+        saut.close();
+        //sobreescribir el archivo temporal
+        ObjectOutputStream fout=new ObjectOutputStream(new FileOutputStream("src/partidas/config.ser"));
+        
+        fout.writeObject(ge);
+        fout.close();
+        
+           System.out.println("ARCHIVO ACTUALIZADO CORRECTAMENTE");
+  
+       }
+       catch(Exception e){
+           System.out.println("El ARCHIVO NO SE PUDO ACTUALIZAR");
+       }
+    }
+    
+    
+    
     /**
      * Metodo que reproduce el sonido de button3.wav
      */
@@ -219,7 +342,47 @@ public class VntPartida {
         }
     }
      
+     /**
+      * reproduce un sonido de victoria
+      */
+     public  void victoria(){
+        try{
+        String path="src/audios/victoria.wav";
+        Media media = new Media(new File(path).toURI().toString());
+
+        MediaPlayer cad=new MediaPlayer(media);
+        
+        cad.play();
+        System.out.println("--------------\nSE REPRODUCE");
+        }
+        catch(Exception e){
+            System.out.println("NO SE REPRODUCE");
+        }
+    }
+     
+     /**
+      * reproduce un sonido de perdida
+      */
+     public  void perdida(){
+        try{
+        String path="src/audios/perdida.wav";
+        Media media = new Media(new File(path).toURI().toString());
+
+        MediaPlayer cad=new MediaPlayer(media);
+        
+        cad.play();
+        System.out.println("--------------\nSE REPRODUCE");
+        }
+        catch(Exception e){
+            System.out.println("NO SE REPRODUCE");
+        }
+    }
+     
+     
+     
+     
      public boolean verificarAlineacion(){
+         
          return true;
      }
      
@@ -318,5 +481,5 @@ public class VntPartida {
              System.err.println("CARTAS NO GENERADAS");
              System.out.println(m.getMessage());
          }
-     }
+     } 
 }

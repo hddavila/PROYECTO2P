@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Date;
  *
  * @author Doménica Briones
  */
-public class Tiempo {
+public class Tiempo implements Serializable{
     Date fecha;
     String duracion;
 
@@ -45,4 +46,16 @@ public class Tiempo {
     public void setDuracion(String duracion) {
         this.duracion = duracion;
     }
+
+    @Override
+    public String toString() {
+        String[] msjFecha=fecha.toString().split(" ");
+        String dia=msjFecha[2];
+        String mes=msjFecha[1];
+        String anio=msjFecha[5];
+        
+        return dia+"/"+mes+"/"+anio+" - " + duracion;
+    }
+    
+    
 }
