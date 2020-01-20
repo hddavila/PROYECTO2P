@@ -53,17 +53,20 @@ public class VntReporte{
     private void createContent(){
         root=new BorderPane();
         
-        String[] datos={"Usuario","Alineacion","Tiempo", "CantidadOponente", "Visibilidad"};
+        String[] datos={"nombreUsuario","alineacion","tiempo", "cantidadOponentes"};//, "Visibilidad"};
         tableView= new TableView();
         tableView.setPlaceholder(new Label("No existen partidas jugadas"));
         for (String campo:datos){
             
             TableColumn<String,Partida> columna=new TableColumn<>(campo);
-            columna.setMinWidth(150);
-            columna.setMaxWidth(200);
-            columna.setCellValueFactory(new PropertyValueFactory<>(campo.toLowerCase()));
+            columna.setMinWidth(200);
+            columna.setMaxWidth(250);
+            columna.setCellValueFactory(new PropertyValueFactory<>(campo));
             tableView.getColumns().add(columna);
         }
+        
+        
+        cargarPartidas();
         
         //agregar los datos del arralyst al table view
         for(Partida p:partida){
@@ -87,34 +90,17 @@ public class VntReporte{
         root.setCenter(tableView);
     }
     
-     
+    /**
+     * Abre el archvio con el arreglo de las partidas y lo carga en el arreglo partida
+     */ 
     private void cargarPartidas(){
-        partida=new ArrayList<>();
-        Path path =Paths.get(archivo);
-        if (Files.exists(path)){
-            ObjectInputStream in = null;
-            try{
-                in=new ObjectInputStream(new FileInputStream(archivo));
-                partida=(ArrayList<Partida>) in.readObject();
-                in.close();
-            }
-            catch(FileNotFoundException ex){
-                System.out.println(ex.getMessage());
-            }
-            catch(IOException ex){
-                System.out.println(ex.getMessage());
-            }
-            catch(ClassNotFoundException ex){
-                System.out.println(ex.getMessage());
-            }
-            finally{
-                try{
-                    in.close();
-                }
-                catch(IOException ex){
-                    System.out.println(ex.getMessage());
-                }
-            }
+        try{
+            ObjectInputStream leer=new ObjectInputStream(new FileInputStream("src/partidas/partida.ser"));
+            partida=(ArrayList<Partida>) leer.readObject();
+            
+        }
+        catch(Exception m){
+            System.err.println("NO SE PUEDIERON CARGAR LAS PARTIDAS");
         }
         System.out.println(partida);
     }

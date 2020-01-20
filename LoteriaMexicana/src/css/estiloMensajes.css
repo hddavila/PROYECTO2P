@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 .dialog-pane > .content.label {
-   -fx-padding: 25 5 5 5;
-   -fx-text-fill:black;
-   -fx-font-size:20.0px;
+   -fx-padding: 25 5 5 100; /*arriba, derecha, abajo,izquierda */
+   -fx-text-fill: black;
+   -fx-font-size: 30.0px;
 }

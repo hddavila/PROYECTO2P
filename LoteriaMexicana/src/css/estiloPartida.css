@@ -27,6 +27,7 @@ and open the template in the editor.
 }
 
 #alineacion{
+     -fx-padding: 25 5 5 25; /*arriba, derecha, abajo,izquierda */
      -fx-font-size: 20;
      -fx-font-weight: bold;
 }
@@ -37,6 +38,7 @@ and open the template in the editor.
 
 
 #cuadroInfo{
+    -fx-padding: 100 5 5 25; /*arriba, derecha, abajo,izquierda */
     -fx-fill: #75BADC;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
     -fx-opacity: 0.90; 
@@ -44,5 +46,4 @@ and open the template in the editor.
 
 #cronometro{
     -fx-font-size: 18;
-    -fx-font-color: white;
 }
