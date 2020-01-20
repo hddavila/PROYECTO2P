@@ -35,7 +35,7 @@ public class HiloIncorrecto extends Thread{
             Image mostrar=new Image("/recursos/salir.png");
             incorrecto.setImage(mostrar);
             
-            hilo.sleep(2000);
+            hilo.sleep(500);
             incorrecto.setImage(null);
             }
         catch(Exception m){
