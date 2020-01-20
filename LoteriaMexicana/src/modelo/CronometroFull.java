@@ -71,6 +71,7 @@ public class CronometroFull extends Thread {
             hilo = new Thread(this);
             hilo.start();
         }
+        if (!hilo.isAlive()) start();
     }
     
     public void pararCronometro(){
@@ -79,7 +80,7 @@ public class CronometroFull extends Thread {
     
     public void reiniciarCronometro(){
         time = "00:00:00:00";
-        show.setText(time);
+        Platform.runLater(()->show.setText(time));
     }
     
     public Label getLabel(){
