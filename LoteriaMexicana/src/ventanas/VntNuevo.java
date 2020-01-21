@@ -25,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import modelo.Partida;
+import static ventanas.VntInicio.musica;
 import static ventanas.VntInicio.sonido;
 
 /**
@@ -87,6 +88,7 @@ public class VntNuevo {
         //accion del boton iniciar
         btn_iniciar.setOnAction(e->{
             sonido();
+            musica.parar();
             if(txtNombre.getText().trim().length()>0){
                 actualizarConfig();
                 

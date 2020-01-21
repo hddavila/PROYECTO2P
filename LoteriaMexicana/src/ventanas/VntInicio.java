@@ -5,6 +5,7 @@
  */
 package ventanas;
 
+import hilos.HiloMusica;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -53,6 +54,7 @@ public class VntInicio {
     private StackPane root;
     private final double width = 900;
     private final double height = 500;
+    public static HiloMusica musica; 
     
 
      
@@ -155,7 +157,8 @@ public class VntInicio {
         });
         
         //reproducir musica de fondo
-        musica();
+        musica=new HiloMusica();
+        musica.iniciar();
         
         
         //generar configuracion incial por defecto;
@@ -184,24 +187,6 @@ public class VntInicio {
     }
     
     
-    /**
-     *
-     * Reproduce la musica de fondo
-     */
-    public void musica(){
-        try{
-        String path="src/audios/mexico.wav";
-        Media media = new Media(new File(path).toURI().toString());
-
-        MediaPlayer cad=new MediaPlayer(media);
-        cad.play();
-        System.out.println("--------------\nSE REPRODUCE");
-        }
-        catch(Exception e){
-            System.out.println("NO SE REPRODUCE");
-        }
-    }
-
     /**
      * Genera el archivo con la configuracion incial por defecto al abrir el juego
      */
