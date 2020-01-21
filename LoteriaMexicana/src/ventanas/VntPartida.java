@@ -38,7 +38,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import modelo.Carta;
 import modelo.Cronometro;
-import modelo.CronometroFull;
+import hilos.CronometroFull;
 import modelo.Jugador;
 import modelo.Partida;
 import paneles.PanelAlineacion;

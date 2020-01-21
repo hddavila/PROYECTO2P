@@ -1,6 +1,7 @@
 
 package modelo;
 
+import hilos.HiloIncorrecto;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -124,23 +125,7 @@ public class Tablero {
 //                
     }
     
-     /**
-     * Metodo que reproduce el sonido de error.wav
-     */
-     public  void sonido(){
-        try{
-        String path="src/audios/error.wav";
-        Media media = new Media(new File(path).toURI().toString());
-
-        MediaPlayer cad=new MediaPlayer(media);
-        
-        cad.play();
-        System.out.println("--------------\nSE REPRODUCE");
-        }
-        catch(Exception e){
-            System.out.println("NO SE REPRODUCE");
-        }
-    }
+     
 
     public void verificarCarta(Integer numero,Map<Integer,ImageView> mapa){
         if(mapa.containsKey(numero)){

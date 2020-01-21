@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
+package hilos;
 
+import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import static ventanas.VntInicio.sonido;
 
 /**
@@ -46,6 +49,24 @@ public class HiloIncorrecto extends Thread{
 
     public ImageView getIncorrecto() {
         return incorrecto;
+    }
+    
+    /**
+     * Metodo que reproduce el sonido de error.wav
+     */
+     public  void sonido(){
+        try{
+        String path="src/audios/error.wav";
+        Media media = new Media(new File(path).toURI().toString());
+
+        MediaPlayer cad=new MediaPlayer(media);
+        
+        cad.play();
+        System.out.println("--------------\nSE REPRODUCE");
+        }
+        catch(Exception e){
+            System.out.println("NO SE REPRODUCE");
+        }
     }
     
     

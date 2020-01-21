@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import modelo.Alineacion;
 import modelo.Cronometro;
-import modelo.CronometroFull;
+import hilos.CronometroFull;
 import modelo.Oponente;
 import paneles.PanelAlineacion;
 

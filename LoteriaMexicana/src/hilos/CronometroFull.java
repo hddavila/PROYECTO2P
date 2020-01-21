@@ -1,5 +1,5 @@
 
-package modelo;
+package hilos;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
