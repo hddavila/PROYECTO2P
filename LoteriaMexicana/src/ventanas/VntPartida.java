@@ -39,6 +39,8 @@ import javafx.stage.Stage;
 import modelo.Carta;
 import modelo.Cronometro;
 import hilos.CronometroFull;
+import hilos.HiloOponente;
+import javafx.scene.layout.GridPane;
 import modelo.Jugador;
 import modelo.Partida;
 import paneles.PanelAlineacion;
@@ -94,9 +96,9 @@ public class VntPartida {
        
         //incializar todos lo contenedores
         contenedor=new BorderPane();
-        izquierda=new VBox();
+        izquierda=new VBox(50);
         centro=new HBox();
-        derecha=new VBox();
+        derecha=new VBox(10);
         info=new VBox();
         
         contenedor.setCenter(centro);
@@ -149,8 +151,28 @@ public class VntPartida {
                 //panel alineacion
                 PanelAlineacion alineacion=new PanelAlineacion(config.getAlineacion());
                 BorderPane panelAlineacion=alineacion.getRoot();
+                panelAlineacion.setMinWidth(300);
+                panelAlineacion.setMaxWidth(50);
                 panelAlineacion.setId("alineacion");
                 izquierda.getChildren().add(panelAlineacion);
+                
+                //panel oponentes                
+                for(int i=0;i< config.getCantidadOponentes();i++){
+                    HiloOponente oponente=new HiloOponente();
+                    Tablero tb_oponente=new Tablero(guardadas);
+                    oponente.setTablero(tb_oponente.getRoot());
+                    
+                    HBox cnt_oponente=new HBox();
+                    cnt_oponente.setAlignment(Pos.CENTER);
+                    cnt_oponente.setMinWidth(200);
+                    cnt_oponente.setMaxWidth(200);
+                    cnt_oponente.setMinHeight(200);
+                    cnt_oponente.setMaxHeight(200);
+                    cnt_oponente.getChildren().add(oponente.getTablero());
+                    izquierda.getChildren().add(cnt_oponente);
+                    
+                }
+               
                 
                 
                 

@@ -16,6 +16,7 @@ import javafx.scene.media.MediaPlayer;
 public class HiloMusica extends Thread {
     private boolean activo;
     private Thread hilo;
+    private MediaPlayer cad;
     
     public HiloMusica(){
          this.hilo = new Thread(this);
@@ -29,7 +30,7 @@ public class HiloMusica extends Thread {
                 String path="src/audios/mexico.wav";
                 Media media = new Media(new File(path).toURI().toString());
 
-                MediaPlayer cad=new MediaPlayer(media);
+                cad=new MediaPlayer(media);
                 cad.setVolume(0.50);
                 cad.play();
                 System.out.println("--------------\nSE REPRODUCE MUSICA");
@@ -52,6 +53,8 @@ public class HiloMusica extends Thread {
     
     public void parar(){
         this.activo=false;
+        cad.stop();
+        
     }
     
 }
