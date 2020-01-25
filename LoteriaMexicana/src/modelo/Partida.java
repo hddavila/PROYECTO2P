@@ -16,6 +16,7 @@ public class Partida implements Serializable{
     Alineacion alineacion;
     Tiempo tiempo;
     int cantidadOponentes;
+    boolean oculto;
     
     public Partida(){
     
@@ -26,6 +27,7 @@ public class Partida implements Serializable{
         this.alineacion = alineacion;
         this.tiempo = tiempo;
         this.cantidadOponentes = cantidadOponentes;
+        this.oculto=true;
     }
 
     public String getNombreUsuario() {
@@ -48,6 +50,12 @@ public class Partida implements Serializable{
         return tiempo;
     }
 
+    public boolean isOculto() {
+        return oculto;
+    }
+    
+    
+
     public void setTiempo(Tiempo tiempo) {
         this.tiempo = tiempo;
     }
@@ -60,10 +68,19 @@ public class Partida implements Serializable{
         this.cantidadOponentes = cantidadOponentes;
     }
 
+    public void setOculto(boolean oculto) {
+        this.oculto = oculto;
+    }
+    
+    
+
+
     @Override
     public String toString() {
-        return "Partida{" + "nombreUsuario=" + nombreUsuario + ", alineacion=" + alineacion + ", tiempo=" + tiempo + ", cantidadOponentes=" + cantidadOponentes + '}';
+        return "Partida{" + "nombreUsuario=" + nombreUsuario + ", alineacion=" + alineacion + ", tiempo=" + tiempo + ", cantidadOponentes=" + cantidadOponentes + ", oculto=" + oculto + '}';
     }
+
+    
     
     
 }

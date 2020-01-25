@@ -58,21 +58,54 @@ public class VntReporte{
         tableView.setPlaceholder(new Label("No existen partidas jugadas"));
         for (String campo:datos){
             
-            TableColumn<String,Partida> columna=new TableColumn<>(campo);
-            columna.setMinWidth(200);
-            columna.setMaxWidth(250);
-            columna.setCellValueFactory(new PropertyValueFactory<>(campo));
-            tableView.getColumns().add(columna);
+            TableColumn<String,Partida> columna;
+            switch(campo){
+                case "nombreUsuario":
+                    columna=new TableColumn<>("Nombre");
+                    columna.setMinWidth(200);
+                    columna.setMaxWidth(250);
+                    columna.setCellValueFactory(new PropertyValueFactory<>(campo));
+                    tableView.getColumns().add(columna);
+                    break;
+                
+                case "alineacion":
+                    columna=new TableColumn<>("Alineacion");
+                    columna.setMinWidth(200);
+                    columna.setMaxWidth(250);
+                    columna.setCellValueFactory(new PropertyValueFactory<>(campo));
+                    tableView.getColumns().add(columna);
+                    break;
+                case "tiempo":
+                    columna=new TableColumn<>("Tiempo");
+                    columna.setMinWidth(200);
+                    columna.setMaxWidth(250);
+                    columna.setCellValueFactory(new PropertyValueFactory<>(campo));
+                    tableView.getColumns().add(columna);
+                    break;
+                case "cantidadOponentes":
+                    columna=new TableColumn<>("Cantidad Oponentes");
+                    columna.setMinWidth(200);
+                    columna.setMaxWidth(250);
+                    columna.setCellValueFactory(new PropertyValueFactory<>(campo));
+                    tableView.getColumns().add(columna);
+                    break;
+            }
+            
+            
         }
         
         
         cargarPartidas();
         
         //agregar los datos del arralyst al table view
-        for(Partida p:partida){
-            tableView.getItems().add(p);
+        try{
+            for(Partida p:partida){
+                tableView.getItems().add(p);
+            }
         }
-         
+        catch(Exception m){
+            System.out.println("NO EXISTEN PARTIDAS");
+        }
         HBox conTitulo=new HBox(10);
         Label lbl= new Label("Reporte");
         

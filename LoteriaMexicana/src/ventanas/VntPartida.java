@@ -159,9 +159,10 @@ public class VntPartida {
                 
                 //panel oponentes                
                 for(int i=0;i< config.getCantidadOponentes();i++){
-                    Tablero tb_oponente=new Tablero(guardadas,true);
+                    Tablero tb_oponente=new Tablero(guardadas,true,config.isOculto());
                     //establecer que el tablero es de un bot
                     tb_oponente.setMaquina(true);
+                    System.out.println("oculto"+config.isOculto());
                     tb_oponente.getRoot().setDisable(true);
                     tb_oponente.getRoot().setScaleX(0.30);
                     tb_oponente.getRoot().setScaleY(0.30);
@@ -181,7 +182,7 @@ public class VntPartida {
                 
                 
             //CENTRO
-                Tablero tablero=new Tablero(guardadas,false);
+                Tablero tablero=new Tablero(guardadas,false,config.isOculto());
                 tablero.setMapa(mazo.getAnunciadas());
                 
                 centro.getChildren().add(tablero.getRoot());

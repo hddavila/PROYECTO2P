@@ -37,8 +37,10 @@ public class VntConfiguracion {
     private ComboBox cmbCantidad;
     private boolean visibilidad;
     private ImageView back;
+    private Button btn_activar;
     
     public VntConfiguracion(){
+        visibilidad=false;
         createContent();
     }
     
@@ -89,7 +91,22 @@ public class VntConfiguracion {
 
         HBox fila2=new HBox(10);
         Label lblVisibilidad=new Label("Visibilidad oponentes");
-        Button btn_activar=new Button("activar");
+        btn_activar=new Button("Activar");
+        
+        btn_activar.setOnAction(e->{
+            if(btn_activar.getOpacity()==0.80){
+                System.out.println("se desactivo");
+                visibilidad=false;
+                btn_activar.setText("Activar");
+                btn_activar.setOpacity(1);
+            }else{
+                System.out.println("se activo");
+                visibilidad=true;
+                btn_activar.setText("Desactivar");
+                btn_activar.setOpacity(0.80);   
+            }
+           
+        });
 
         fila2.getChildren().addAll(lblVisibilidad,btn_activar);
         fila2.setAlignment(Pos.CENTER);
@@ -118,6 +135,7 @@ public class VntConfiguracion {
         
         //sobreescribir el numero de oponentes al que se selecciono
         ge.setCantidadOponentes(Integer.parseInt(cmbCantidad.getValue().toString()));
+        ge.setOculto(!visibilidad);
         
                 
         System.out.println(ge.toString()); //---------------borrar------------------------------------

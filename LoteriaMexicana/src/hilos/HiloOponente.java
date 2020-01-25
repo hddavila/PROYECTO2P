@@ -59,8 +59,8 @@ public class HiloOponente extends Thread {
                   //agregar el frijol encima
                   try{
                       Image imagen=new Image("/recursos/frijol3.png");
-                      frijol.setFitWidth(50);
-                      frijol.setFitHeight(50);
+                      frijol.setFitWidth(70);
+                      frijol.setFitHeight(70);
                       frijol.setStyle("-fx-opacity:0.90;"); 
                       frijol.setImage(imagen);
                   }catch(Exception m){

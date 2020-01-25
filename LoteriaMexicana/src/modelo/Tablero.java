@@ -17,6 +17,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import ventanas.VntPartida;
 
 /**
@@ -29,24 +31,25 @@ public class Tablero {
     private Map<Integer,ImageView> mapa;
     private boolean condicion;
     private boolean maquina;
+    private boolean oculto;
     
     /**Constructor que genera el objeto tablero
      * @param cartas_Jug cartas existentes del mazo
      * @param maquina condicion que establece si el tablero es de un oponente jugador=false oponente=true
      */
     
-    public Tablero(ArrayList<Carta> cartas_Jug,boolean maquina){
+    public Tablero(ArrayList<Carta> cartas_Jug,boolean maquina,boolean oculto){
         root = new GridPane();
 //        root.setGridLinesVisible(true);
         root.setAlignment(Pos.CENTER);
         
         root.setVgap(-60);
         root.setHgap(-50);
-        
         this.cartas_Jug = cartas_Jug;
         this.condicion=true;
         this.mapa=new HashMap<Integer,ImageView>();
         this.maquina=maquina;
+        this.oculto=oculto;
         crearTablero();
     }
     
@@ -80,7 +83,28 @@ public class Tablero {
                   ImageView agregar=(carta).getImagen();
                   agregar.setScaleX(0.80);
                   agregar.setScaleY(0.80);
-                  tarjeta.getChildren().add(agregar);
+                  
+                  /*si la visibilidad es verdadera entonces no se ocultan las cartas
+                  de otra forma se sustituyen las cartas por bloques blancos*/
+                  if(oculto && maquina){
+                      StackPane cartaInvisible=new StackPane();
+                      Rectangle bloqueB=new Rectangle(178,256);
+                      bloqueB.setFill(Color.WHITE);
+                      bloqueB.setStrokeWidth(5);
+                      bloqueB.setStroke(Color.BLACK);
+                      Label lblLeyenda=new Label("CARTA");
+                      lblLeyenda.setStyle("-fx-font-size: 45;-fx-font-weight: bold;");
+                      cartaInvisible.getChildren().addAll(bloqueB,lblLeyenda);
+                      cartaInvisible.setScaleX(0.80);
+                      cartaInvisible.setScaleY(0.80);
+                      
+                      tarjeta.getChildren().add(cartaInvisible);
+                      root.setVgap(-35);
+                      root.setHgap(-25);
+                  }else{
+                      tarjeta.getChildren().add(agregar);
+                  }
+                 
                   
                   
                   //declarar la accion de la carta
@@ -161,6 +185,12 @@ public class Tablero {
     public void setMaquina(boolean maquina) {
         this.maquina = maquina;
     }
+
+    public void setOculto(boolean oculto) {
+        this.oculto = oculto;
+    }
+    
+    
     
     
 }
