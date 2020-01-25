@@ -37,7 +37,6 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import modelo.Carta;
-import modelo.Cronometro;
 import hilos.CronometroFull;
 import hilos.HiloOponente;
 import javafx.scene.layout.GridPane;
@@ -137,15 +136,16 @@ public class VntPartida {
                 
                 
                 //boton finalizar partida(no se registra el juego porque no se termino)
-                Button finalizar=new Button("Finalizar partida");
-                finalizar.setAlignment(Pos.CENTER);
-                finalizar.setOnAction(e->{
+                Button btnFinalizar=new Button("Finalizar partida");
+                btnFinalizar.setAlignment(Pos.CENTER);
+                btnFinalizar.setOnAction(e->{
                     Stage stage=new Stage();
                     nuevo(stage);
-                    finalizar.getScene().getWindow().hide();
+                    btnFinalizar.getScene().getWindow().hide();
                 });
                 HBox cnt_finalizar=new HBox();
                 cnt_finalizar.setAlignment(Pos.CENTER);
+                cnt_finalizar.getChildren().add(btnFinalizar);
                 derecha.getChildren().addAll(cuadro,mazo.getImgCarta(),cnt_finalizar);
             
             //IZQUIERDA
@@ -264,8 +264,9 @@ public class VntPartida {
 
     }
     
-    /**
-     * Recupera el objeto de tipo Partida que tiene la configuracion temporal del juego
+    /**Recupera el objeto de tipo Partida que tiene la configuracion temporal del juego
+     * @return ge Objeto con la informacion de la Partida recuperado del archivo serializado
+     * @throws Exception Excepcion cuando no puede obtener la configuracion inicial generada
      */
     public Partida recuperarConfig() throws Exception{
         ObjectInputStream saut=new ObjectInputStream(new FileInputStream("src/partidas/config.ser"));
@@ -430,9 +431,11 @@ public class VntPartida {
         stage.show();
      }
      
-     /**
-      * Genera el arreglo de con los Objetos ImageView de las cartas recortadas de los arhivos con las cartas
-      *  
+     /**Genera el arreglo con los Objetos ImageView de las cartas recortadas de los arhivos con las cartas
+      * @param ruta ruta donde se encuentra la imagen de cartas a recortar
+      * @param ancho ancho individual de cada carta a recortar
+      * @param alto alto individual de cada carta a recortar
+      * @throws Exception Excepcion de algun fallo al generar las cartas
       */
      public void obtenerCartas(String ruta,int ancho,int alto)throws Exception{
         
@@ -485,8 +488,11 @@ public class VntPartida {
         
      }
      
-     /**
-      * Crea un archivo de objeto de tipo Cartas con la informacion del arreglo de las imagenes de las cartas y el archivo con la descripcion de estas
+     /**Crea un archivo de objeto de tipo Cartas con la informacion del arreglo de 
+      * las imagenes de las cartas y el archivo con la descripcion de estas
+      * 
+      * @param ruta ruta del archivo que dispone de la descripcion de las carta en orden (numero,nombre)
+      * @param arrCartas arreglo de las objetos ImageView de la cartas a ser etiquetadas
       */
      public void crearCartas(String ruta, ArrayList<ImageView> arrCartas){
         guardadas=new ArrayList<>();

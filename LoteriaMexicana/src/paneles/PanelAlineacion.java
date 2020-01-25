@@ -28,18 +28,18 @@ public class PanelAlineacion {
     private VBox columna;
     private BorderPane root;
     
-    /**
+    /**Constructor del panel Alineacion que recibe un estado del Enum Alineacion 
+     * @param alineacion recibe el objeto de tipo Enum de la alineacion que se usara
      * 
-     * Constructor del panel Alineacion que recibe un estado del Enum Alineacion 
      */
     public PanelAlineacion(Alineacion alineacion){
         this.alineacion=alineacion;
         createContent();
     }
     
-    /**
+    /**Devuelve el panel de alineacion generado 
+     * @return root contenedor del panel con la alineacion generada
      * 
-     * Metodo que devuelve el panel de alineacion generado 
      */
     public BorderPane getRoot(){
         return root;
@@ -55,19 +55,17 @@ public class PanelAlineacion {
     public void createContent(){
         root=new BorderPane();
         columna=new VBox();
-        crearAlineacion(alineacion);
+        crearAlineacion();
         root.setCenter(columna);
     }
     
     
     
     
-    /**
-     *
-     * Metodo que recibe una alineacion y genera el tablero que se muestra correspondiente a esa alineacion
+    /**Metodo que recibe una alineacion y genera el tablero que se muestra correspondiente a esa alineacion
      * 
      */
-    public void crearAlineacion(Alineacion alineacion){
+    public void crearAlineacion(){
         
         Label lblTitulo=new Label("Forma de ganar");
         lblTitulo.setAlignment(Pos.CENTER);

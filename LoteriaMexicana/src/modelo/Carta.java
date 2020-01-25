@@ -9,10 +9,7 @@ package modelo;
 import java.io.Serializable;
 import javafx.scene.image.ImageView;
 
-/**
- *
- * Clase con la cual podemos instanciar objetos de tipo Carta
- */
+
 public class Carta implements Serializable {
     
     private String nombre;
@@ -20,9 +17,10 @@ public class Carta implements Serializable {
     private ImageView imagen;
     
     
-    /**
-     *
-     * Crea una carta con nombre,numero e imagen
+    /**Crea una carta con nombre,numero e imagen
+     *@param nombre nombre de la carta
+     * @param numero numero de la carta
+     * @param imagen ImageView de la imagen de la carta
      */
     public Carta(String nombre,int numero,ImageView imagen){
         this.nombre=nombre;

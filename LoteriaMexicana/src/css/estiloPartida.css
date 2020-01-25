@@ -15,6 +15,7 @@ and open the template in the editor.
 #jugador{
     -fx-font-size: 30;
     -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
 #loteria{
@@ -46,4 +47,5 @@ and open the template in the editor.
 
 #cronometro{
     -fx-font-size: 18;
+    -fx-font-weight: bold;
 }

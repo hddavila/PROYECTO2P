@@ -30,10 +30,11 @@ public class Tablero {
     private boolean condicion;
     private boolean maquina;
     
-    /**
-     * 
-     * Construcor que recibe un arreglo de objetos de tipo Carta
+    /**Constructor que genera el objeto tablero
+     * @param cartas_Jug cartas existentes del mazo
+     * @param maquina condicion que establece si el tablero es de un oponente jugador=false oponente=true
      */
+    
     public Tablero(ArrayList<Carta> cartas_Jug,boolean maquina){
         root = new GridPane();
 //        root.setGridLinesVisible(true);
@@ -49,7 +50,10 @@ public class Tablero {
         crearTablero();
     }
     
-    
+    /**Devuelve el contenedor principal del objeto Tablero
+     * 
+     * @return GridPane del tablero generado
+     */
      public GridPane getRoot() {
         return root;
     }
@@ -133,7 +137,12 @@ public class Tablero {
     }
     
      
-
+    /** Verfica que la carta ingresada se encuentre en el mapa de las cartas ya anunciadas
+     * 
+     * @param carta Objeto carta del cual usando su numero compramos que sea una clave existente del mapa
+     * de cartas ya anunciadas
+     * @param mapa mapa de las cartas ya anunciadas
+     */
     public void verificarCarta(Carta carta,Map<Integer,ImageView> mapa){
         if(mapa.containsKey(carta.getNumero())){
             condicion=true;

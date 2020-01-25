@@ -54,6 +54,7 @@ public class HiloOponente extends Thread {
             verificarCarta(carta,PanelMazo.anunciadas);
               //si la condicion es correcta añade el frijol a la carta y esta se bloquea
               if(condicion){
+                  hilo.sleep(3000);
                   System.out.println("Encontre "+carta);
                   //agregar el frijol encima
                   try{
