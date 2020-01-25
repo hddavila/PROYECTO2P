@@ -144,8 +144,9 @@ public class VntPartida {
                     nuevo(stage);
                     finalizar.getScene().getWindow().hide();
                 });
-                
-                derecha.getChildren().addAll(cuadro,mazo.getImgCarta(),finalizar);
+                HBox cnt_finalizar=new HBox();
+                cnt_finalizar.setAlignment(Pos.CENTER);
+                derecha.getChildren().addAll(cuadro,mazo.getImgCarta(),cnt_finalizar);
             
             //IZQUIERDA
                 //panel alineacion
@@ -158,9 +159,12 @@ public class VntPartida {
                 
                 //panel oponentes                
                 for(int i=0;i< config.getCantidadOponentes();i++){
-                    HiloOponente oponente=new HiloOponente();
-                    Tablero tb_oponente=new Tablero(guardadas);
-                    oponente.setTablero(tb_oponente.getRoot());
+                    Tablero tb_oponente=new Tablero(guardadas,true);
+                    //establecer que el tablero es de un bot
+                    tb_oponente.setMaquina(true);
+                    tb_oponente.getRoot().setDisable(true);
+                    tb_oponente.getRoot().setScaleX(0.30);
+                    tb_oponente.getRoot().setScaleY(0.30);
                     
                     HBox cnt_oponente=new HBox();
                     cnt_oponente.setAlignment(Pos.CENTER);
@@ -168,16 +172,16 @@ public class VntPartida {
                     cnt_oponente.setMaxWidth(200);
                     cnt_oponente.setMinHeight(200);
                     cnt_oponente.setMaxHeight(200);
-                    cnt_oponente.getChildren().add(oponente.getTablero());
+                    cnt_oponente.getChildren().add(tb_oponente.getRoot());
                     izquierda.getChildren().add(cnt_oponente);
-                    
+   
                 }
                
                 
                 
                 
             //CENTRO
-                Tablero tablero=new Tablero(guardadas);
+                Tablero tablero=new Tablero(guardadas,false);
                 tablero.setMapa(mazo.getAnunciadas());
                 
                 centro.getChildren().add(tablero.getRoot());

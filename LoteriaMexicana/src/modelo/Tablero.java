@@ -2,6 +2,7 @@
 package modelo;
 
 import hilos.HiloIncorrecto;
+import hilos.HiloOponente;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,12 +28,13 @@ public class Tablero {
     private GridPane root;
     private Map<Integer,ImageView> mapa;
     private boolean condicion;
+    private boolean maquina;
     
     /**
      * 
      * Construcor que recibe un arreglo de objetos de tipo Carta
      */
-    public Tablero(ArrayList<Carta> cartas_Jug){
+    public Tablero(ArrayList<Carta> cartas_Jug,boolean maquina){
         root = new GridPane();
 //        root.setGridLinesVisible(true);
         root.setAlignment(Pos.CENTER);
@@ -43,6 +45,7 @@ public class Tablero {
         this.cartas_Jug = cartas_Jug;
         this.condicion=true;
         this.mapa=new HashMap<Integer,ImageView>();
+        this.maquina=maquina;
         crearTablero();
     }
     
@@ -58,6 +61,7 @@ public class Tablero {
     public void crearTablero(){
           
       ArrayList<Integer> salieron=new ArrayList<>();
+      salieron.clear();
       
       //LLena el GridPane las imagenes de los objetos Carta escojidos de manera aleatoria del arreglo
       for (int fila=0;fila<4;fila++){
@@ -74,11 +78,11 @@ public class Tablero {
                   agregar.setScaleY(0.80);
                   tarjeta.getChildren().add(agregar);
                   
+                  
                   //declarar la accion de la carta
-                  //ESTA ES UNA PRUEBA DE LA ACCION DE LA IMAGEN (NO ES LA FUNCION FINAL)
                   agregar.setOnMouseClicked(e->{
                       
-                      verificarCarta(carta.getNumero(),mapa);
+                      verificarCarta(carta,mapa);
                       //si la condicion es correcta añade el frijol a la carta y esta se bloquea
                       if(condicion){
                           //agregar el frijol encima
@@ -91,15 +95,9 @@ public class Tablero {
                           }catch(Exception m){
                               System.out.println("No se pudo agregar el frijol");
                           }
-                          //bloquear el stackpane luego de posicion el frijol
-
+                          //bloquear el stackpane luego de posicionar el frijol
                           agregar.setStyle("-fx-opacity:0.3;");
                           tarjeta.setDisable(true);
-
-//                          Alert mensaje=new Alert(AlertType.INFORMATION);
-//                          mensaje.setHeaderText(null);
-//                          mensaje.setContentText(carta.getNumero()+" "+carta.getNombre());
-//                          mensaje.showAndWait();
                       }
                       //si la condicion es incorrecta se agrega una image de una equis por 2 segundos y luego se quita
                       else{
@@ -113,6 +111,15 @@ public class Tablero {
                       
                   });
                   
+                  
+                  //si maquina=true entonces este tablero pertenece a un bot que juega solo
+                  if(maquina){
+                     HiloOponente oponente= new HiloOponente(carta);
+                     oponente.jugar();
+                     tarjeta.getChildren().add(oponente.getFrijol());
+                      
+                  }
+                  
                   //agregar el contenedor tarjeta
                   root.add(tarjeta,columna,fila);
                   salieron.add(pos);
@@ -122,13 +129,13 @@ public class Tablero {
               }
           }
       }
-//                
+
     }
     
      
 
-    public void verificarCarta(Integer numero,Map<Integer,ImageView> mapa){
-        if(mapa.containsKey(numero)){
+    public void verificarCarta(Carta carta,Map<Integer,ImageView> mapa){
+        if(mapa.containsKey(carta.getNumero())){
             condicion=true;
         }
         else{
@@ -137,11 +144,14 @@ public class Tablero {
         
     }
 
+    
     public void setMapa(Map<Integer, ImageView> mapa) {
         this.mapa = mapa;
     }
-    
 
-   
+    public void setMaquina(boolean maquina) {
+        this.maquina = maquina;
+    }
+    
     
 }

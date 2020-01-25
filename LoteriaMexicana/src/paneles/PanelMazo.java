@@ -25,7 +25,7 @@ public class PanelMazo extends Thread{
     private Thread hilo;
     private VBox contenedor;
     private ArrayList<Carta> arregloCartas;
-    private Map<Integer,ImageView> anunciadas;
+    public static Map<Integer,ImageView> anunciadas;
     private boolean activo;
     private ImageView imgCarta;
     
@@ -62,8 +62,8 @@ public class PanelMazo extends Thread{
                     
                     
                     Platform.runLater(()-> imgCarta.setImage(imagen));
-                    //duracion 4 segundos
-                    hilo.sleep(4000);
+                    //duracion 3 segundos
+                    hilo.sleep(3000);
                 }
             }
         }
