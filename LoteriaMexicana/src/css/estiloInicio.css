@@ -80,3 +80,8 @@
 #caja{
     -fx-font-size: 20;
 }
+
+#principal{
+  -fx-background-image: url("/recursos/background2.png");
+  -fx-background-color: white;
+}
