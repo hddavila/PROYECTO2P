@@ -412,13 +412,19 @@ public class VntPartida {
      
      
      
-     
+     /**Verifica los tableros cumplan con la alineacion requerida
+      * 
+      * @return valor true(si cumple con la alineacion) false(si no cumple con la alineacion)
+      */
      public boolean verificarAlineacion(){
          
          return true;
      }
      
-     
+     /**Genera una nueva ventana de inicio 
+      * 
+      * @param stage Stage vacio para contener a la nueva ventana de inicio
+      */
      public void nuevo(Stage stage){
         VntInicio inicio=new VntInicio();
         

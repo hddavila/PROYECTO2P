@@ -17,7 +17,9 @@ public class HiloMusica extends Thread {
     private boolean activo;
     private Thread hilo;
     private MediaPlayer cad;
-    
+    /**
+     * Hilo que reproduce la musica de fondo repetidamente
+     */
     public HiloMusica(){
          this.hilo = new Thread(this);
          this.activo=false;

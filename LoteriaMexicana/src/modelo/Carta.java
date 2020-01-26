@@ -27,15 +27,27 @@ public class Carta implements Serializable {
         this.numero=numero;
         this.imagen=imagen;
     }
-
+    
+    /**
+     * Recupera el nombre de la carta
+     * @return nombre nombre de la carta
+     */
     public String getNombre() {
         return nombre;
     }
-
+    
+    /**Recuper el numero de la carta
+     * 
+     * @return numero numero de la carta
+     */
     public int getNumero() {
         return numero;
     }
-
+    
+    /**Recupera el ImageView de la carta
+     * 
+     * @return imagen Imagen de la carta
+     */
     public ImageView getImagen() {
         return imagen;
     }

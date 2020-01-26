@@ -7,7 +7,7 @@ package modelo;
 
 /**
  *
- * @author HP
+ * @author Domenica Briones
  */
 public enum Alineacion {
     FILA, COLUMNA,ESQUINASUPIZQUIERDA,ESQUINASUPDERECHA,ESQUINAINFIZQUIERDA, ESQUINAINFDERECHA, CUALQUIERESQUINA;

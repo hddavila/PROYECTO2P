@@ -44,10 +44,18 @@ public class VntConfiguracion {
         createContent();
     }
     
+    /**
+     * 
+     * @return root contenedor pricnipal de la ventana configuracion
+     */
     public BorderPane getRoot(){
         return root;
     }
-
+    
+    /**
+     * 
+     * @return back boton que regresa a la ventana principal 
+     */ 
     public ImageView getBack() {
         return back;
     }
@@ -127,6 +135,9 @@ public class VntConfiguracion {
         root.setCenter(columna2);
     }
     
+    /**Actualiza la informacion del archivo temporal de configuracion con la configuracion
+     * que recupera de la ventana configuracion
+     */
     public void actualizarConfig(){
        try{
         ObjectInputStream saut=new ObjectInputStream(new FileInputStream("src/partidas/config.ser"));

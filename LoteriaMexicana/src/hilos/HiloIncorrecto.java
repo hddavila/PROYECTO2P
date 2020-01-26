@@ -21,7 +21,8 @@ public class HiloIncorrecto extends Thread{
     private ImageView incorrecto;
     private Thread hilo;
     
-    
+    /**Devuelve un hilo que posiciona por tres segundos una equis y luego la quita
+     */
     public HiloIncorrecto(){
         this.hilo = new Thread(this);
         this.incorrecto=new ImageView();

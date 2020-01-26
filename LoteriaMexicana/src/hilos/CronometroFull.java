@@ -8,12 +8,17 @@ import javafx.scene.control.Label;
  *
  * @author Gabriel
  */
+
+
 public class CronometroFull extends Thread {
     private Thread hilo;
     private String time;
     private boolean activo;
     private Label show;
     
+    /**Genera un hilo que representa un Label de un cronometro
+     * 
+     */
     public CronometroFull(){
         this.activo = false;
         this.time = "00:00:00:00";

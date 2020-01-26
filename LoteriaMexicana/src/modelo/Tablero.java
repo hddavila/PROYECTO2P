@@ -36,6 +36,7 @@ public class Tablero {
     /**Constructor que genera el objeto tablero
      * @param cartas_Jug cartas existentes del mazo
      * @param maquina condicion que establece si el tablero es de un oponente jugador=false oponente=true
+     * @param oculto condicion que establece si el tablero generado se muestra oculto o no
      */
     
     public Tablero(ArrayList<Carta> cartas_Jug,boolean maquina,boolean oculto){

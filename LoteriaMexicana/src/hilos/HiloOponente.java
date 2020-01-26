@@ -36,6 +36,10 @@ public class HiloOponente extends Thread {
     
     ImageView frijol;
     
+    /**
+     * Hilo que constantmente esta verificando si la carta ya fue anunciada para poner marcarla con un frijol
+     * @param carta carta que se esta observando
+     */
     public HiloOponente(Carta carta){
         tablero=new GridPane();
         this.hilo = new Thread(this);

@@ -50,6 +50,9 @@ public class VntReporte{
       return root;  
     }
     
+    /**
+     * Genera el contenido de la ventana reporte
+     */
     private void createContent(){
         root=new BorderPane();
         
@@ -124,7 +127,7 @@ public class VntReporte{
     }
     
     /**
-     * Abre el archvio con el arreglo de las partidas y lo carga en el arreglo partida
+     * Abre el archivo con el arreglo de las partidas y lo carga en el arreglo partida
      */ 
     private void cargarPartidas(){
         try{
@@ -138,6 +141,10 @@ public class VntReporte{
         System.out.println(partida);
     }
     
+    /**
+     * Actualiza el TableView con los objetos de las partidas del arreglo
+     * que se genero al cargar las partidas
+     */
     public void actualizarTableView(){
         tableView.getItems().clear();
         //agregar datos del array al tableview
@@ -145,34 +152,7 @@ public class VntReporte{
             tableView.getItems().add(p);
         }
     }
-     
-    public void actualizarReporte(){
-        FileOutputStream fout=null;
-        try{
-            fout=new FileOutputStream(archivo);
-            ObjectOutputStream out=new ObjectOutputStream(fout);
-            out.writeObject(partida);
-            out.flush();
-            fout.close();
-        }
-        catch(FileNotFoundException ex){
-            System.out.println(ex.getMessage());
-        }
-        catch(IOException ex){
-            System.out.println(ex.getMessage());
-        }
-        finally{
-            try{
-                fout.close();
-            }
-            catch(IOException ex){
-                System.out.println(ex.getMessage());
-            }
-        }
-        
-        
-    }
-
+    
     public ImageView getBack() {
         return back;
     }

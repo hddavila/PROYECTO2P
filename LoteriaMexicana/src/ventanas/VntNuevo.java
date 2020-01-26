@@ -38,6 +38,9 @@ public class VntNuevo {
     BorderPane root;
     ImageView salir;
     
+    /**Constructor de un objeto de tipo Ventana Nuevo jugador
+     * 
+     */
     public VntNuevo(){
         
         createContent();
@@ -50,6 +53,9 @@ public class VntNuevo {
     public StackPane getBackRoot(){
         return back;
     }
+    /**Genera el contenido de la ventana para escribir el nombre del jugador en iniciar la partida
+     * 
+     */
     public void createContent(){
         back = new StackPane();
         try{
@@ -150,7 +156,11 @@ public class VntNuevo {
            System.out.println("El ARCHIVO NO SE PUDO ACTUALIZAR");
        }
     }
-
+    
+    /**Devuelve el boton de regresar
+     * 
+     * @return salir Boton para regresar a la ventana de inicio 
+     */
     public ImageView getSalir() {
         return salir;
     }

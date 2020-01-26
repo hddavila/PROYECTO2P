@@ -127,7 +127,12 @@ public class PanelAlineacion {
         
         
     }
-    
+    /**
+     * Genera tabla con imagenes de cartas que serviran de referencia de la alineacion a cumplir
+     * @param dimx filas de la tabla
+     * @param dimy columnas de la tabla
+     * @return 
+     */
     public GridPane crearTabla(int dimx,int dimy){
         GridPane tabla=new GridPane();
         tabla.setHgap(10);
