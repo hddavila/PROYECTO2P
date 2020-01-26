@@ -73,12 +73,18 @@ public class VntPartida {
     
 
     
+    public static Button btnMaquina;
+    
+    
+    
     PanelMazo mazo;
     
     public VntPartida(){
         arregloCartas=new ArrayList<>();
         guardadas=new ArrayList<>();
+
         createContent();
+        
     }
     
     public BorderPane getContenedor(){
@@ -139,6 +145,8 @@ public class VntPartida {
                 Button btnFinalizar=new Button("Finalizar partida");
                 btnFinalizar.setAlignment(Pos.CENTER);
                 btnFinalizar.setOnAction(e->{
+                    crono.pararCronometro();
+                    mazo.parar();
                     Stage stage=new Stage();
                     nuevo(stage);
                     btnFinalizar.getScene().getWindow().hide();
@@ -166,6 +174,25 @@ public class VntPartida {
                     tb_oponente.getRoot().setDisable(true);
                     tb_oponente.getRoot().setScaleX(0.30);
                     tb_oponente.getRoot().setScaleY(0.30);
+
+                    btnMaquina=new Button();
+                    
+                    btnMaquina.setOnAction(e->{
+                        if(verificarAlineacion(tb_oponente.getArrAlineacion())){
+                            System.out.println("LA MAQUINA GANOOOOOOOOOO");
+                            crono.pararCronometro();
+                            mazo.parar();
+                            perdida();
+                            
+                            perder();
+                        }
+                    });
+                    
+                   
+                    
+                    
+                    
+                    
                     
                     HBox cnt_oponente=new HBox();
                     cnt_oponente.setAlignment(Pos.CENTER);
@@ -206,7 +233,7 @@ public class VntPartida {
                 
                 loteria.setOnAction(e->{
                     sonido();
-                    if(verificarAlineacion()==true){
+                    if(verificarAlineacion(tablero.getArrAlineacion())==true){
                         crono.pararCronometro();
                         mazo.parar();
                         victoria();
@@ -229,26 +256,12 @@ public class VntPartida {
                         
                     }
                     else{
-                        crono.pararCronometro();
-                        mazo.parar();
-                        perdida();
-                        Alert mensaje=new Alert(AlertType.INFORMATION);
-                        DialogPane dialogPane = mensaje.getDialogPane();
-                        dialogPane.getStylesheets().add("/css/estiloMensajes.css");
-                        
-                        mensaje.setTitle(null);
+                        Alert mensaje=new Alert(AlertType.ERROR);
+
+                        mensaje.setTitle("ERROR");
                         mensaje.setHeaderText(null);
-                        mensaje.setGraphic(null);
-                        mensaje.setContentText("PERDISTE :(");
+                        mensaje.setContentText("NO CUMPLE CON LA ALINEACION REQUERIDA!");
                         mensaje.showAndWait();
-                    
-                        actualizarConfig();
-                        guardarPartida();
-                        
-                        Stage stage=new Stage();
-                        nuevo(stage);
-                        loteria.getScene().getWindow().hide();
-                        
                     }
                     
                 });
@@ -416,9 +429,120 @@ public class VntPartida {
       * 
       * @return valor true(si cumple con la alineacion) false(si no cumple con la alineacion)
       */
-     public boolean verificarAlineacion(){
+     public boolean verificarAlineacion(int[][] arrAlineacion){
+         boolean cumple=false;
          
-         return true;
+         switch(config.getAlineacion()){
+            case FILA:
+                //verificar primera fila
+                if(arrAlineacion[0][0]==1 && arrAlineacion[0][1]==1 && arrAlineacion[0][2]==1 && arrAlineacion[0][3]==1){
+                    cumple=true;
+                    break;
+                }
+                
+                //verificar segunda fila
+                else if(arrAlineacion[1][0]==1 && arrAlineacion[1][1]==1 && arrAlineacion[1][2]==1 && arrAlineacion[1][3]==1){
+                    cumple=true;
+                    break;
+                }
+                
+                
+                //verificar tercera fila
+                else if(arrAlineacion[2][0]==1 && arrAlineacion[2][1]==1 && arrAlineacion[2][2]==1 && arrAlineacion[2][3]==1){
+                    cumple=true;
+                    break;
+                }
+                
+                //verificar cuarta fila
+                else if(arrAlineacion[3][0]==1 && arrAlineacion[3][1]==1 && arrAlineacion[3][2]==1 && arrAlineacion[3][3]==1){
+                    cumple=true;
+                    break;
+                }
+                
+                break;
+            case COLUMNA:
+                //verificar primera columna
+                if(arrAlineacion[0][0]==1 && arrAlineacion[1][0]==1 && arrAlineacion[2][0]==1 && arrAlineacion[3][0]==1){
+                    cumple=true;
+                    break;
+                }
+                //verificar segunda columna
+                else if(arrAlineacion[0][1]==1 && arrAlineacion[1][1]==1 && arrAlineacion[2][1]==1 && arrAlineacion[3][1]==1){
+                    cumple=true;
+                    break;
+                }
+                //verificar tecera columna
+                else if(arrAlineacion[0][2]==1 && arrAlineacion[1][2]==1 && arrAlineacion[2][2]==1 && arrAlineacion[3][2]==1){
+                    cumple=true;
+                    break;
+                }
+                //verificar cuarta columna
+                else if(arrAlineacion[0][3]==1 && arrAlineacion[1][3]==1 && arrAlineacion[2][3]==1 && arrAlineacion[3][3]==1){
+                    cumple=true;
+                    break;
+                }
+                
+                break;
+            case ESQUINASUPIZQUIERDA:
+                //verificar esquina superior izquierda
+                if(arrAlineacion[0][0]==1 && arrAlineacion[0][1]==1 && arrAlineacion[1][0]==1 && arrAlineacion[1][1]==1){
+                    cumple=true;
+                    break;
+                }    
+               
+                break;
+            case ESQUINASUPDERECHA:
+                //verificar esquina superior derecha
+                if(arrAlineacion[0][2]==1 && arrAlineacion[0][3]==1 && arrAlineacion[1][2]==1 && arrAlineacion[1][3]==1){
+                    cumple=true;
+                    break;
+                }    
+               
+                break;
+            case ESQUINAINFIZQUIERDA:
+                  //verificar esquina inferior izquierda
+                if(arrAlineacion[2][0]==1 && arrAlineacion[2][1]==1 && arrAlineacion[3][0]==1 && arrAlineacion[3][1]==1){
+                    cumple=true;
+                    break;
+                }    
+               
+               
+                break;
+            case ESQUINAINFDERECHA:
+                 //verificar esquina inferior derecha
+                if(arrAlineacion[2][2]==1 && arrAlineacion[2][3]==1 && arrAlineacion[3][2]==1 && arrAlineacion[3][3]==1){
+                    cumple=true;
+                    break;
+                }    
+                
+                break;
+            case CUALQUIERESQUINA:
+                //verificar esquina superior izquierda
+                if(arrAlineacion[0][0]==1 && arrAlineacion[0][1]==1 && arrAlineacion[1][0]==1 && arrAlineacion[1][1]==1){
+                    cumple=true;
+                    break;
+                }
+                //verificar esquina superior derecha
+                else if(arrAlineacion[0][2]==1 && arrAlineacion[0][3]==1 && arrAlineacion[1][2]==1 && arrAlineacion[1][3]==1){
+                    cumple=true;
+                    break;
+                }
+                 //verificar esquina inferior izquierda
+                else if(arrAlineacion[2][0]==1 && arrAlineacion[2][1]==1 && arrAlineacion[3][0]==1 && arrAlineacion[3][1]==1){
+                    cumple=true;
+                    break;
+                }
+                 //verificar esquina inferior derecha
+                else if(arrAlineacion[2][2]==1 && arrAlineacion[2][3]==1 && arrAlineacion[3][2]==1 && arrAlineacion[3][3]==1){
+                    cumple=true;
+                    break;
+                }    
+                
+               
+                break;
+         }
+         
+         return cumple;
      }
      
      /**Genera una nueva ventana de inicio 
@@ -524,5 +648,23 @@ public class VntPartida {
              System.err.println("CARTAS NO GENERADAS");
              System.out.println(m.getMessage());
          }
-     } 
+     }
+     
+     public void perder(){
+        Alert mensaje=new Alert(AlertType.INFORMATION);
+        DialogPane dialogPane = mensaje.getDialogPane();
+        dialogPane.getStylesheets().add("/css/estiloMensajes.css");
+
+        mensaje.setTitle(null);
+        mensaje.setHeaderText(null);
+        mensaje.setGraphic(null);
+        mensaje.setContentText("PERDISTE :(");
+        mensaje.showAndWait();
+
+        actualizarConfig();
+        guardarPartida();
+
+        
+        
+     }
 }

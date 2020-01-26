@@ -33,6 +33,8 @@ public class Tablero {
     private boolean maquina;
     private boolean oculto;
     
+    private int[][] arrAlineacion;
+        
     /**Constructor que genera el objeto tablero
      * @param cartas_Jug cartas existentes del mazo
      * @param maquina condicion que establece si el tablero es de un oponente jugador=false oponente=true
@@ -51,6 +53,10 @@ public class Tablero {
         this.mapa=new HashMap<Integer,ImageView>();
         this.maquina=maquina;
         this.oculto=oculto;
+        
+        this.arrAlineacion=new int[4][4];
+
+        
         crearTablero();
     }
     
@@ -105,9 +111,11 @@ public class Tablero {
                   }else{
                       tarjeta.getChildren().add(agregar);
                   }
+                  
+                  
                  
-                  
-                  
+                 int posFila=fila;
+                 int posColumna=columna;
                   //declarar la accion de la carta
                   agregar.setOnMouseClicked(e->{
                       
@@ -120,7 +128,9 @@ public class Tablero {
                               frijol.setFitWidth(50);
                               frijol.setFitHeight(50);
                               frijol.setStyle("-fx-opacity:0.90;");
-                              tarjeta.getChildren().add(frijol);   
+                              tarjeta.getChildren().add(frijol);
+                              arrAlineacion[posFila][posColumna]=1;
+                              
                           }catch(Exception m){
                               System.out.println("No se pudo agregar el frijol");
                           }
@@ -143,10 +153,10 @@ public class Tablero {
                   
                   //si maquina=true entonces este tablero pertenece a un bot que juega solo
                   if(maquina){
-                     HiloOponente oponente= new HiloOponente(carta);
+                     HiloOponente oponente= new HiloOponente(carta,arrAlineacion,posFila,posColumna);
                      oponente.jugar();
                      tarjeta.getChildren().add(oponente.getFrijol());
-                      
+                     arrAlineacion=oponente.getArrAlineacion();
                   }
                   
                   //agregar el contenedor tarjeta
@@ -189,6 +199,10 @@ public class Tablero {
 
     public void setOculto(boolean oculto) {
         this.oculto = oculto;
+    }
+
+    public int[][] getArrAlineacion() {
+        return arrAlineacion;
     }
     
     

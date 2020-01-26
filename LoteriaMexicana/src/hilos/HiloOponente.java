@@ -20,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import modelo.Carta;
 import paneles.PanelMazo;
+import ventanas.VntPartida;
 
 /**
  *
@@ -33,6 +34,9 @@ public class HiloOponente extends Thread {
     private Carta carta;
     private ObservableList<Node> cartas; 
     private StackPane tarjeta;
+    private int[][] arrAlineacion;
+    private int fila;
+    private int columna;
     
     ImageView frijol;
     
@@ -40,11 +44,14 @@ public class HiloOponente extends Thread {
      * Hilo que constantmente esta verificando si la carta ya fue anunciada para poner marcarla con un frijol
      * @param carta carta que se esta observando
      */
-    public HiloOponente(Carta carta){
+    public HiloOponente(Carta carta,int[][] arrAlineacion,int fila, int columna){
         tablero=new GridPane();
         this.hilo = new Thread(this);
         this.carta=carta;
         activo=false;
+        this.arrAlineacion=arrAlineacion;
+        this.fila=fila;
+        this.columna=columna;
         
         this.frijol=new ImageView();
     }
@@ -67,12 +74,15 @@ public class HiloOponente extends Thread {
                       frijol.setFitHeight(70);
                       frijol.setStyle("-fx-opacity:0.90;"); 
                       frijol.setImage(imagen);
+                      arrAlineacion[fila][columna]=1;
+                      VntPartida.btnMaquina.fire();
                   }catch(Exception m){
                       System.out.println("No se pudo agregar el frijol");
                   }
                   break;
 
              }
+             
             }
             catch(Exception e){
                 System.out.println("Excepcion");
@@ -115,6 +125,10 @@ public class HiloOponente extends Thread {
 
     public ImageView getFrijol() {
         return frijol;
+    }
+
+    public int[][] getArrAlineacion() {
+        return arrAlineacion;
     }
 
    

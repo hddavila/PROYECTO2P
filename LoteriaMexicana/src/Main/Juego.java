@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 
 import javafx.geometry.Pos;
+import javafx.scene.AccessibleAction;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -53,6 +54,6 @@ public class Juego extends Application {
         stage.setTitle("Loteria Mexicana");
 //        stage.setResizable(false);
         stage.show();
-       
+        
     }
 }
